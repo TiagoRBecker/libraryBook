@@ -9,9 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "flipbook": "^0.0.4",
+    "jquery": "^3.7.1",
+    "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.0.4"
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1",
+    "turn.js": "^1.0.5"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
