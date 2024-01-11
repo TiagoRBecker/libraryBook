@@ -1,6 +1,8 @@
+
 import Link from "next/link";
 
 const Header = () => {
+
   return (
     <header className="w-full h-24 bg-white flex items-center justify-around shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
       <Link href={"/"} className="w-[30%] h-full flex items-center justify-center">

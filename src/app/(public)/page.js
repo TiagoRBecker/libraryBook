@@ -1,7 +1,6 @@
 
-import Teste from "@/components/Card";
-import Carousel from "@/components/Carrousel";
-import GridCardBox from "@/components/GridCard/index";
+import Carousel from "../../components/Carrousel/index";
+import GridCardBox from "../../components/GridCard/index";
 
 
 export default function Home() {
