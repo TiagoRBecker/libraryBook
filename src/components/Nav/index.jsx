@@ -92,7 +92,7 @@ const Header = () => {
         >
           <h3 className="text-black font-bold  py-2">Perfil Usuário</h3>
           
-            <Link href={"/account-settings"} onClick={()=>setShowUser(false)}>
+            <Link href={"/account-settings/settings"} onClick={()=>setShowUser(false)}>
             <div className="flex gap-2 items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -111,7 +111,7 @@ const Header = () => {
             <p>Conta</p>
             </div>
             </Link>
-         
+            <Link href={"/account-settings/favorites"} onClick={()=>setShowUser(false)}>
           <div className="flex gap-2 items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -129,7 +129,9 @@ const Header = () => {
             </svg>
             <p>Favoritos</p>
           </div>
-          <div className="flex gap-2 items-center">
+            </Link>
+            <Link href={"/account-settings/requests"} onClick={()=>setShowUser(false)}>
+            <div className="flex gap-2 items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -145,7 +147,8 @@ const Header = () => {
               />
             </svg>
             <p>Pedidos</p>
-          </div>
+            </div>
+            </Link>
           <div className=" flex gap-2 items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"

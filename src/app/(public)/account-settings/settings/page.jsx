@@ -1,6 +1,6 @@
 const Settings = () => {
     return (
-    <div className="w-full h-screen flex  flex-col px-10 py-10 gap-5">
+    <div className="w-full h-full flex  flex-col px-10 py-8  gap-5 ">
       <h1>Nome do Usuário</h1>
       <p>Leonardo Paiva</p>
       <h1>Email do Usúario:</h1>

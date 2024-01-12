@@ -13,7 +13,12 @@ import { toast } from "react-toastify";
 export default function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [favorite, setFave] = useState([]);
-
+ useEffect(()=>{
+  const getFavorite = JSON?.parse(localStorage.getItem("cart"))
+  if(getFavorite){
+    setFave(getFavorite)
+  }
+ },[])
   
   const addToCart = (product) => {
     setCart((prev) => {
@@ -89,7 +94,7 @@ export default function CartProvider({ children }) {
           theme: "light",
         });
         const favorites = [...prev, book];
-        localStorage.setItem("cart", JSON.stringify(favorites));
+        localStorage.setItem("favorite", JSON.stringify(favorites));
         return favorites;
       } else {
         toast.warn("O item já foi adicionado ao favoritos!", {
@@ -107,6 +112,16 @@ export default function CartProvider({ children }) {
       }
     });
   };
+  const clearFavorite = () => {
+    const favorite = [];
+
+    // Atualize o localStorage para refletir o carrinho vazio
+    localStorage.setItem("favorite", JSON.stringify(favorite));
+    setFave(favorite)
+      
+    return favorite;
+   
+  };
 
   return (
     <CartContext.Provider
@@ -118,6 +133,7 @@ export default function CartProvider({ children }) {
         addToCart,
         clearCart,
         handleAddFav,
+        clearFavorite
       }}
     >
       {children}
