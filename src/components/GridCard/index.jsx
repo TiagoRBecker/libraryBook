@@ -6,7 +6,7 @@ const GridCardBox = () => {
   return (
     <Grid>
       {books.map((book, index) => (
-        <Link href={`/books/${book.id}`}>
+        <Link href={`/magazine/${book.id}`}>
           <div
             className="w-full h-full flex flex-col shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] px-4 py-2 rounded-md"
             key={index}

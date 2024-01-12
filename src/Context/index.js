@@ -112,6 +112,7 @@ export default function CartProvider({ children }) {
       }
     });
   };
+  
   const clearFavorite = () => {
     const favorite = [];
 
