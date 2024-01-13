@@ -32,13 +32,13 @@ const Carrousel = () => {
           
          
         <div className="w-full h-full ">
-        <img src="/1.jpg" alt="" className="w-full h-[300px] object-cover" />
+        <img src="/1.jpg" alt="" className="w-full h-full object-cover" />
         </div>
         <div className="w-full h-full relative ">
-        <img src="/2.jpg" alt=""  className="w-full h-[300px] object-cover"/>
+        <img src="/2.jpg" alt=""  className="w-full h-full object-cover"/>
         </div>
         <div className="w-full h-full relative  ">
-        <img src="/3.jpg" alt=""  className="w-full h-[300px] object-cover"/>
+        <img src="/3.jpg" alt=""  className="w-full h-full object-cover"/>
         </div>
          
           
