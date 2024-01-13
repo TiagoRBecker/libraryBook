@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 import Carrousel from "../Carrousel";
 
 const Header = () => {
-  const [position, setPosition] = useState(479);
+  const [position, setPosition] = useState(300);
   const [visible, setVisible] = useState(true);
   useEffect(() => {
     const handleScroll = () => {
       let moving = window.scrollY;
+       console.log(moving)
       if (moving >= position) {
         setVisible(false);
       } else {
@@ -22,7 +23,7 @@ const Header = () => {
     };
   });
 
-  const cls = visible ? "w-full h-[120px] flex items-center justify-center text-black shadow-[0_3px_10px_rgb(0,0,0,0.2)] " :"w-full h-[120px] flex items-center justify-center text-black fixed top-0 bg-white z-50 shadow-[0_3px_10px_rgb(0,0,0,0.2)] ";
+  const cls = visible ? "w-full h-[60px] flex items-center justify-center text-black shadow-[0_3px_10px_rgb(0,0,0,0.2)] py-2" :"w-full h-[60px] flex items-center justify-center text-black fixed top-0 bg-white z-50 shadow-[0_3px_10px_rgb(0,0,0,0.2)] py-2";
   const [showUser, setShowUser] = useState(false);
   const showMenu = () => {
     setShowUser(!showUser);
@@ -37,7 +38,7 @@ const Header = () => {
           className="w-[30%] h-full flex items-center justify-center"
         >
           <div className="w-[30%] h-full flex items-center justify-center">
-            <img src="/logo.png" alt="Logo" className="w-26 h-12" />
+            <img src="/logo.png" alt="Logo" className="w-36 h-12" />
           </div>
         </Link>
           <ul className=" w-[40%] flex items-center gap-10 uppercase">
@@ -60,7 +61,7 @@ const Header = () => {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-8 h-8 text-black"
+              className="w-6 h-6 text-black"
             >
               <path
                 strokeLinecap="round"
@@ -76,7 +77,7 @@ const Header = () => {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-8 h-8 text-black"
+              className="w-6 h-6 text-black"
             >
               <path
                 strokeLinecap="round"
@@ -95,7 +96,7 @@ const Header = () => {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-8 h-8 text-black"
+              className="w-6 h-6 text-black"
             >
               <path
                 strokeLinecap="round"
