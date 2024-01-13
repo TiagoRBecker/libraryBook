@@ -64,19 +64,19 @@ const Carrousel = () => {
   return (
     <section className=" py-10 w-full h-full">
       {categories.map((category, index) => (
-        <div className="relative py-4">
+        <div className="relative py-9">
           <div
             key={index}
-            className="flex w-[96%] items-center justify-between px-4"
+            className="flex w-[80%] mx-auto items-center justify-between px-4"
           >
             <h1>{category.name}</h1>
             <Link href={`/categories/${category.id}`}>
-            <h3 className="text-[#14B7A1]">Ver todas</h3>
+            <h3 className="text-[#14B7A1] pr-10">Ver todas</h3>
             </Link>
           </div>
-          <Slider key={index} {...settings} className="w-full h-[400px] ">
+          <Slider key={index} {...settings} className="w-[80%] h-full mx-auto ">
             {category.books?.map((book, bookIndex) => (
-              <div className="slick-slide-wrapper p-2" key={bookIndex}>
+              <div className="w-full " key={bookIndex}>
                 <div
                   className="w-full  px-2 py-2 h-full flex flex-col shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] "
                   key={bookIndex}
@@ -84,7 +84,7 @@ const Carrousel = () => {
                   <img
                     src={book.cover}
                     alt={book.name}
-                    className="w-full h-[289px] object-fill "
+                    className="w-[200px] h-[270px] object-fill "
                   />
                   <h2 className="text-gray-400 pt-1 ">
                     Edição Volume {book.vol}

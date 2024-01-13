@@ -28,7 +28,7 @@ const Carrousel = () => {
     return ( 
 
      
-        <Slider {...settings} className="w-full h-[80vh] mt-2 ">
+        <Slider {...settings} className="w-full h-[80vh]  ">
           
          
         <div className="w-full h-full ">
