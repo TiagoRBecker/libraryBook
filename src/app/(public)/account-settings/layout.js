@@ -9,9 +9,9 @@ const inter = Inter({ subsets: ["latin"] });
 export default function userSettingsLayout({ children }) {
   const path = usePathname();
   return (
-    <div className="w-full h-full flex">
-      <nav className=" flex flex-col items-center py-10 w-[20%] ">
-        <ul className="flex flex-col gap-6">
+    <div className="w-full h-full flex flex-col">
+      <nav className=" flex  items-center pl-32 py-10 w-full border-b-[1px] border-gray-400 ">
+        <ul className="flex  gap-6">
           <li className="flex flex-col gap-3">
             <Link
               href={"/account-settings/settings"}
@@ -33,15 +33,7 @@ export default function userSettingsLayout({ children }) {
               </svg>
               <p>Conta</p>
             </Link>
-            <p
-              className={
-                path === "/account-settings/settings"
-                  ? "pl-16 text-blue-500"
-                  : "pl-16 text-black"
-              }
-            >
-              Informaçãoes
-            </p>
+            
           </li>
           <li className="flex flex-col gap-3">
             <Link
@@ -64,15 +56,7 @@ export default function userSettingsLayout({ children }) {
               </svg>
               <p>Pedidos</p>
             </Link>
-            <p
-              className={
-                path === "/account-settings/requests"
-                  ? "pl-16 text-blue-500"
-                  : "pl-16 text-black"
-              }
-            >
-              Historico de compra
-            </p>
+            
           </li>
           <li className="flex flex-col gap-3">
             <Link
@@ -95,19 +79,11 @@ export default function userSettingsLayout({ children }) {
               </svg>
               <p>Favoritos</p>
             </Link>
-            <p
-              className={
-                path === "/account-settings/favorites"
-                  ? "pl-16 text-blue-500"
-                  : "pl-16 text-black"
-              }
-            >
-              Seus Favoritos
-            </p>
+           
           </li>
         </ul>
       </nav>
-      <main className="w-[80%]">{children}</main>
+      <main className="w-full">{children}</main>
     </div>
   );
 }

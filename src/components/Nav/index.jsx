@@ -1,14 +1,30 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Header = () => {
+  const [position, setPosition] = useState(0)
+    const [visible, setVisible] = useState(true) 
+    useEffect(()=> {
+        const handleScroll = () => {
+           let moving = window.scrollY
+           
+           setVisible(position > moving);
+           setPosition(moving)
+        };
+        window.addEventListener("scroll", handleScroll);
+        return(() => {
+           window.removeEventListener("scroll", handleScroll);
+        })
+    })
+
+  const cls = visible ? "visible_menu" : "hidden_menu";
   const [showUser, setShowUser] = useState(false);
   const showMenu = () => {
     setShowUser(!showUser);
   };
   return (
-    <header className="w-full h-24 bg-white flex items-center justify-around shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
+    <header className={cls}>
       <Link
         href={"/"}
         className="w-[30%] h-full flex items-center justify-center"
@@ -17,7 +33,7 @@ const Header = () => {
           <img src="/logo.png" alt="Logo" className="w-26 h-12" />
         </div>
       </Link>
-      <nav className="w-[40%] flex items-center justify-center">
+      <nav className="w-[40%] flex items-center justify-center text-white">
         <ul className=" flex items-center gap-10 uppercase">
           <li>
             <Link href={"/magazine"}>Revistas</Link>
@@ -32,14 +48,14 @@ const Header = () => {
         </ul>
       </nav>
       <div className="flex items-center justify-center gap-10 w-[30%]  relative">
-        <div className="">
+        <div className="cursor-pointer transiton duration-150 ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-8 h-8"
+            className="w-8 h-8 text-white"
           >
             <path
               strokeLinecap="round"
@@ -48,14 +64,14 @@ const Header = () => {
             />
           </svg>
         </div>
-        <div className="">
+        <div className="cursor-pointer transiton duration-150 ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-8 h-8"
+            className="w-8 h-8 text-white"
           >
             <path
               strokeLinecap="round"
@@ -65,7 +81,7 @@ const Header = () => {
           </svg>
         </div>
         <div
-          className="cursor-pointer transiton duration-150 hover:text-blue-600"
+          className="cursor-pointer transiton duration-150 "
           onClick={showMenu}
         >
           <svg
@@ -74,7 +90,7 @@ const Header = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-8 h-8 "
+            className="w-8 h-8 text-white"
           >
             <path
               strokeLinecap="round"

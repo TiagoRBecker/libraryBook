@@ -3,13 +3,14 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { categories } from "./constants";
+import Link from "next/link";
 
 
 const Carrousel = () => {
   function SampleNextArrow(props) {
     const { className, style, onClick } = props;
     return (
-      <div className="absolute -top-5 right-8" onClick={onClick}>
+      <div className="absolute -top-5 right-8 " onClick={onClick}>
         {/* Ícone SVG personalizado */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +18,7 @@ const Carrousel = () => {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-5 h-5 text-gray-500  cursor-pointer"
+          className="w-5 h-5 text-gray-500  cursor-pointer hover:text-[#14B7A1]"
         >
           <path
             strokeLinecap="round"
@@ -40,7 +41,7 @@ const Carrousel = () => {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-5 h-5 text-gray-500  cursor-pointer"
+          className="w-5 h-5 text-gray-500  cursor-pointer hover:text-[#14B7A1]"
         >
           <path
             strokeLinecap="round"
@@ -69,7 +70,9 @@ const Carrousel = () => {
             className="flex w-[96%] items-center justify-between px-4"
           >
             <h1>{category.name}</h1>
-            <h3>Ver todas</h3>
+            <Link href={`/categories/${category.id}`}>
+            <h3 className="text-[#14B7A1]">Ver todas</h3>
+            </Link>
           </div>
           <Slider key={index} {...settings} className="w-full h-[400px] ">
             {category.books?.map((book, bookIndex) => (
