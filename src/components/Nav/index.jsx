@@ -6,9 +6,13 @@ const Header = () => {
   const [position, setPosition] = useState(0)
     const [visible, setVisible] = useState(true) 
     useEffect(()=> {
+   
+      
         const handleScroll = () => {
            let moving = window.scrollY
-           
+           if (showUser) {
+            setShowUser(false);
+          }
            setVisible(position > moving);
            setPosition(moving)
         };
@@ -16,6 +20,7 @@ const Header = () => {
         return(() => {
            window.removeEventListener("scroll", handleScroll);
         })
+        
     })
 
   const cls = visible ? "visible_menu" : "hidden_menu";
@@ -81,8 +86,9 @@ const Header = () => {
           </svg>
         </div>
         <div
-          className="cursor-pointer transiton duration-150 "
-          onClick={showMenu}
+        id="teste"
+          className="cursor-pointer transiton duration-150"
+          onClick={showMenu} 
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -100,9 +106,10 @@ const Header = () => {
           </svg>
         </div>
         <div
+       
           className={
             showUser
-              ? "flex flex-col gap-9 w-[300px] h-[400px] bg-white rounded-sm absolute top-16  z-50 px-4 py-2"
+              ? "flex flex-col gap-9 w-[300px] h-[400px] bg-white rounded-sm absolute top-11 right-3  z-50 px-4 py-2"
               : "hidden"
           }
         >
