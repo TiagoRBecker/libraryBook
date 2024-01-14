@@ -9,8 +9,8 @@ const inter = Inter({ subsets: ["latin"] });
 export default function userSettingsLayout({ children }) {
   const path = usePathname();
   return (
-    <div className="w-full h-full flex flex-col">
-      <nav className=" flex  items-center pl-32 py-10 w-full border-b-[1px] border-gray-400 ">
+    <div className="w-full h-full flex flex-col ">
+      <nav className=" flex  items-center pl-32 py-10 w-full border-b-[1px] border-gray-400 pt-[90px] ">
         <ul className="flex  gap-6">
           <li className="flex flex-col gap-3">
             <Link
