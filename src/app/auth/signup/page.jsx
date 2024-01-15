@@ -14,15 +14,44 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const signup = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(4);
+  const [imageUrls, setImageUrls] = useState([]);
+  const [ loading ,setloading] = useState(true)
+  
  
+  useEffect(() => {
+    
+    
+    // Lista de URLs de imagens correspondentes a cada índice
+    const imageUrlsList = [
+      "/step_2.jpg",
+      "/step_1.jpg",
+      "/step_2.jpg",
+      "/step_1.jpg",
+      "/step_1.jpg",
+    ];
+
+    // Pré-carregar as imagens
+    const preloadedImages = imageUrlsList.map((url) => {
+      const img = new Image();
+      img.src = url;
+      return img;
+    });
+     if(preloadedImages){
+      setImageUrls(preloadedImages);
+      setloading(false)
+
+     }
+    // Atualizar o estado com as URLs pré-carregadas
+  
+  }, [imageUrls]); 
   const steps = [
-    { title: "1", description: "Dados Iniciais" },
-    { title: "2", description: "Endereço" },
-    { title: "3", description: "Cadastrar" },
-    { title: "4", description: "Concluido" },
+    { description: "Dados Iniciais" },
+    {  description: "Endereço" },
+    { description: "Cadastrar" },
+    {  description: "Concluido" },
   ];
 
   function Steep() {
@@ -68,12 +97,18 @@ const signup = () => {
     }
   };
 
-    
+    if(loading){
+      return(
+        <section className="w-full h-screen flex items-center justify-center">
+          carregando aguarde
+        </section>
+      )
+    }
   return (
     <section className="w-full   h-screen overflow-y-hidden">
       <div className="w-full h-full flex  ">
-        <div className=" w-[70%] h-full px-10 flex flex-col gap-4  py-10 overflow-y-auto">
-          <div className="py-10">{Steep()}</div>
+        <div className=" w-[55%] h-full px-10 flex flex-col gap-4  py-10 overflow-y-auto">
+          <div className="w-full">{Steep()}</div>
           <h1 className="w-full text-center font-bold text-1xl tracking-[18px] uppercase">
             Magazine
           </h1>
@@ -296,12 +331,15 @@ const signup = () => {
             </form>
           
         </div>
-        <div className="w-[30%] h-auto ">
-          {currentIndex === 0 && <img src="/step_2.jpg" alt="" className="w-full h-full object-fill" /> }
-          {currentIndex === 1 && <img src="/step_1.jpg" alt="" className="w-full h-full object-fill" /> }
-          {currentIndex === 2 && <img src="/step_2.jpg" alt="" className="w-full h-full object-fill" /> }
-          {currentIndex === 4 && <img src="/step_2.jpg" alt="" className="w-full h-full object-fill" /> }
-            
+        <div className="w-[45%] h-auto ">
+          {currentIndex >= 0 && currentIndex < imageUrls.length && (
+            <img
+              
+              src={imageUrls[currentIndex].src}
+              alt="steps"
+              className="w-full h-full object-cover "
+            />
+          )}
           </div>
 
        
