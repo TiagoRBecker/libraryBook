@@ -16,7 +16,7 @@ import Link from "next/link";
 
 import { useState } from "react";
 const signup = () => {
-  const [currentIndex, setCurrentIndex] = useState(4);
+  const [currentIndex, setCurrentIndex] = useState(0);
  
   const steps = [
     { title: "1", description: "Dados Iniciais" },
@@ -246,8 +246,8 @@ const signup = () => {
                     Concluído.
                   </h1>
                   <h2 className="text-3xl font-bold text-center ">Sua conta foi criada co sucesso!</h2>
-                   <p>Parabéns voçê concluiu todos os passos.Agora você pode desfrutar de todas as funcionalidades da <span className="text-[#14B7A1] font-bold">Plash Magazine</span>em suas compras e vendas.</p>
-                 <p>Lá em <span className="text-[#14B7A1] font-bold">Meu Perfil você~pode inserir seus dados cadastrais para receber suas encomendas.</span></p>
+                   <p>Parabéns voçê concluiu todos os passos.Agora você pode desfrutar de todas as funcionalidades da <span className="text-[#14B7A1] font-bold">Plash Magazine</span> em suas compras e vendas.</p>
+                 <p>Lá em <span className="text-[#14B7A1] font-bold">Meu Perfil você pode inserir seus dados cadastrais para receber suas encomendas.</span></p>
                  <p>Clique no Botão para fazer Login e visitar nossos produtos.</p>
                  <Link href={"/auth/signin"}>
                   <div className="w-full flex items-center justify-center">
@@ -292,7 +292,7 @@ const signup = () => {
             </form>
           </div>
         </div>
-        <div className="w-[30%] h-auto bg-red-300">
+        <div className="w-[30%] h-auto ">
             <img src="/step_2.jpg" alt="" className="w-full h-full object-fill" />
           </div>
 
