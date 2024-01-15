@@ -70,22 +70,23 @@ const signup = () => {
 
     
   return (
-    <section className="w-full h-full">
+    <section className="w-full   h-screen overflow-y-hidden">
       <div className="w-full h-full flex  ">
-        <div className=" w-[70%] h-full px-10 flex flex-col gap-4 ">
+        <div className=" w-[70%] h-full px-10 flex flex-col gap-4  py-10 overflow-y-auto">
           <div className="py-10">{Steep()}</div>
           <h1 className="w-full text-center font-bold text-1xl tracking-[18px] uppercase">
             Magazine
           </h1>
 
-          <div className="flex flex-col w-full items-center justify-center">
+          
             <form
               action=""
-              className="w-full h-full flex items-center justify-center flex-col"
+              className="w-full py-10 flex items-center justify-center flex-col"
             >
+              <div className="w-full h-full py-4">
               {currentIndex === 0 && (
-                <div className="w-full h-full flex flex-col gap-8 ">
-                  <div className=""></div>
+                <div className="w-full h-full flex flex-col gap-6  ">
+                  
                   <h1 className="text-center text-2xl font-bold">
                     Crie sua conta!E grátis.
                   </h1>
@@ -139,10 +140,11 @@ const signup = () => {
                       className="w-full outline-none h-10 border-[1px] border-gray-200 rounded-md pl-3"
                     />
                   </div>
+                 
                 </div>
               )}
               {currentIndex === 1 && (
-                <div className="w-full h-full flex flex-col gap-8 ">
+                <div className="w-full h-full flex flex-col gap-8  overflow-y-visible">
                   <h1 className="text-center text-2xl font-bold">
                    Cadastrar Endereço
                   </h1>
@@ -209,10 +211,11 @@ const signup = () => {
                       className="w-full outline-none h-10 border-[1px] border-gray-200 rounded-md pl-3"
                     />
                   </div>
+                  
                 </div>
               )}
               {currentIndex === 2 && (
-                <div className="w-full h-[306px] flex flex-col gap-8 ">
+                <div className="w-full h-full flex flex-col gap-8 ">
                   <div className="w-full flex items-center justify-center">
                   <button
                     onClick={handleSubmit}
@@ -241,7 +244,7 @@ const signup = () => {
               )}
               {currentIndex === 4 && (
               
-                <div className="w-full h-[338px] flex flex-col gap-8 ">
+                <div className="w-full h-full flex flex-col gap-8 ">
                   <h1 className="text-center text-xl font-bold">
                     Concluído.
                   </h1>
@@ -264,7 +267,8 @@ const signup = () => {
                 
                
               )}
-              <div className="w-full mx-auto py-10 flex items-center justify-center gap-5">
+              </div>
+              <div className="w-full  flex items-center justify-center gap-5">
                 {currentIndex === 4 ? (
                   <></>
                 ) : (
@@ -288,12 +292,16 @@ const signup = () => {
                     Proximo
                   </button>
                 )}
-              </div>
+                  </div>
             </form>
-          </div>
+          
         </div>
         <div className="w-[30%] h-auto ">
-            <img src="/step_2.jpg" alt="" className="w-full h-full object-fill" />
+          {currentIndex === 0 && <img src="/step_2.jpg" alt="" className="w-full h-full object-fill" /> }
+          {currentIndex === 1 && <img src="/step_1.jpg" alt="" className="w-full h-full object-fill" /> }
+          {currentIndex === 2 && <img src="/step_2.jpg" alt="" className="w-full h-full object-fill" /> }
+          {currentIndex === 4 && <img src="/step_2.jpg" alt="" className="w-full h-full object-fill" /> }
+            
           </div>
 
        
