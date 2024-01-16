@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Header = () => {
-  const [position, setPosition] = useState(0);
+  const [position, setPosition] = useState(window.scrollY);
   const [visible, setVisible] = useState(true);
   const [showUser, setShowUser] = useState(false);
   const [showMenuMobile, setShowMenuMobile] = useState(false);
@@ -20,7 +20,7 @@ const Header = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  });
+  },[position,showUser]);
 
   const cls = visible ? "visible_menu" : "hidden_menu";
 

@@ -54,11 +54,37 @@ const Carrousel = () => {
   }
 
   const settings = {
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
     cssEase: "linear",
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+         
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          centerMode: true,
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
   };
 
   return (
@@ -71,14 +97,14 @@ const Carrousel = () => {
           >
             <h1>{category.name}</h1>
             <Link href={`/categories/${category.id}`}>
-            <h3 className="text-[#14B7A1] pr-10">Ver todas</h3>
+            <h3 className="text-[#14B7A1] ">Ver todas</h3>
             </Link>
           </div>
-          <Slider key={index} {...settings} className="w-[80%] h-full mx-auto ">
+          <Slider key={index} {...settings} className="w-full h-full mx-auto ">
             {category.books?.map((book, bookIndex) => (
-              <div className="w-full " key={bookIndex}>
+              <div className="w-full p-4 " key={bookIndex}>
                 <div
-                  className="w-full  px-2 py-2 h-full flex flex-col shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] "
+                  className="w-full  px-2 py-2 h-full flex flex-col shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] "
                   key={bookIndex}
                 >
                   <img
@@ -91,6 +117,9 @@ const Carrousel = () => {
                   </h2>
                   <p className="w-full text-base truncate text-gray-600 pt-5">
                     {book.name}
+                  </p>
+                  <p className="w-full text-base truncate text-gray-600 pt-5">
+                    {book.capa}
                   </p>
                 </div>
               </div>

@@ -21,6 +21,9 @@ const GridCardBox = () => {
             <p className="w-full text-base truncate text-gray-600 pt-5">
               {book.name}
             </p>
+            <p className="w-full text-base truncate text-gray-600 pt-5">
+              {book.capa}
+            </p>
 
            
           </div>

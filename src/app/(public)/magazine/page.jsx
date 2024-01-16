@@ -26,7 +26,10 @@ const Magazine = () => {
                       <p className="w-full text-base truncate text-gray-600 py-2 px-1">
                         {book.name}
                       </p>
-          
+               
+                      <p className="w-full text-base truncate text-gray-600 py-2 px-1">
+                        {book.capa}
+                      </p>
                      
                     </div>
                   </Link>
