@@ -7,8 +7,22 @@ const Header = () => {
   const [visible, setVisible] = useState(true);
   const [showUser, setShowUser] = useState(false);
   const [showMenuMobile, setShowMenuMobile] = useState(false);
+
+  useEffect(() => {}, []);
   useEffect(() => {
+    const handleResize = () => {
+      const viewWidth = window.innerWidth;
+      if (viewWidth > 770) setShowMenuMobile(false);
+    };
+
+    // Adiciona um listener de redimensionamento quando o componente é montado
+
     const handleScroll = () => {
+      // Verifica se o menu mobile está aberto, se sim, retorna sem fazer nada
+      if (showMenuMobile) {
+        return;
+      }
+
       let moving = window.scrollY;
       if (showUser) {
         setShowUser(false);
@@ -16,11 +30,24 @@ const Header = () => {
       setVisible(position > moving);
       setPosition(moving);
     };
+
+    // Adiciona ou remove a classe dependendo do estado showMenuMobile
+    if (showMenuMobile) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    // Adiciona o listener de scroll
     window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize);
+    // Remove o listener e a classe quando o componente for desmontado
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      document.body.classList.remove("overflow-hidden");
+      window.removeEventListener("resize", handleResize);
     };
-  },[position,showUser]);
+  }, [position, showUser, showMenuMobile]);
 
   const cls = visible ? "visible_menu" : "hidden_menu";
 
@@ -30,6 +57,7 @@ const Header = () => {
   const handleMenuMobile = () => {
     setShowMenuMobile(!showMenuMobile);
   };
+
   return (
     <header className={cls}>
       <div className="w-[70%] justify-start md:w-[30%]  h-full flex items-center md:justify-center gap-4">
@@ -74,44 +102,60 @@ const Header = () => {
           <li></li>
         </ul>
       </nav>
-      <nav className={showMenuMobile ? "showMenu " : "hiddeMenu"}>
-        <ul className=" flex flex-col gap-10 absolute top-0 left-0 bottom-0 right-0 bg-white w-[300px] px-4 py-2">
-          <div className="w-full flex items-center justify-between">
-            <Link
-              href={"/"}
-              className="w-full h-full flex items-center justify-start bg-red-300"
-            >
-              <img src="/logo.png" alt="Logo" className=" w-32 h-12" />
-            </Link>
-            <p onClick={() => setShowMenuMobile(false)} className="cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18 18 6M6 6l12 12"
-                />
-              </svg>
-            </p>
-          </div>
-          <li>
-            <Link href={"/magazine"}>Revistas</Link>
-          </li>
-          <li>
-            <Link href={"/explore"}>Explorar</Link>
-          </li>
-          <li>
-            <Link href={"/library"}>Biblioteca</Link>
-          </li>
-          <li></li>
-        </ul>
-      </nav>
+
+      <div className="flex">
+        <div className={showMenuMobile ? "showMenu " : "hiddeMenu"}>
+          <nav className="w-full h-full">
+            <ul className="flex gap-6 flex-col">
+              <div className="w-full flex items-center justify-between">
+                <Link
+                  href={"/"}
+                  className="w-full h-full flex items-center justify-start "
+                >
+                  <img src="/logo.png" alt="Logo" className=" w-32 h-12" />
+                </Link>
+                <p
+                  onClick={() => setShowMenuMobile(false)}
+                  className="cursor-pointer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18 18 6M6 6l12 12"
+                    />
+                  </svg>
+                </p>
+              </div>
+              <li>
+                <Link href={"/magazine"}>Revistas</Link>
+              </li>
+              <li>
+                <Link href={"/explore"}>Explorar</Link>
+              </li>
+              <li>
+                <Link href={"/library"}>Biblioteca</Link>
+              </li>
+              <li></li>
+            </ul>
+          </nav>
+        </div>
+        <div
+          className={
+            showMenuMobile
+              ? "flex absolute top-0 z-30 left-0 right-0 bottom-0 w-full h-screen transition duration-150 ease-in-out bg-[rgba(0,0,0,0.4)]"
+              : "fadeMenu"
+          }
+        ></div>
+      </div>
+
       <div className="flex items-center justify-center gap-10 w-[30%]  relative">
         <div className="hidden md:flex cursor-pointer transiton duration-150 ">
           <svg

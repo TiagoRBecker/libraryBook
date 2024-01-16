@@ -8,7 +8,7 @@ const Magazine = () => {
       {categories.map((category, index) => (
         <div key={index}>
        <h1 className="text-2xl py-8 ">{category.name}</h1>
-        <div className="w-full h-full grid grid-cols-5 gap-4 py-5 ">
+       <div className="w-full h-full grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 py-5">
             {
                 category.books.map((book,index)=>(
                     <Link href={`/magazine/${book.id}`}>
@@ -19,7 +19,7 @@ const Magazine = () => {
                       <img
                         src={book.cover}
                         alt={book.name}
-                        className="w-full h-[300px] "
+                        className="w-full h-full sm:h-[300px] "
                       />
                       <h2 className="text-gray-400 py-2 px-1 ">Edição Volume {book.vol}</h2>
                       
