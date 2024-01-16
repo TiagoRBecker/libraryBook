@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Header = () => {
-  const [position, setPosition] = useState(window.scrollY);
+  const [position, setPosition] = useState(0);
   const [visible, setVisible] = useState(true);
   const [showUser, setShowUser] = useState(false);
   const [showMenuMobile, setShowMenuMobile] = useState(false);
@@ -79,9 +79,9 @@ const Header = () => {
           <div className="w-full flex items-center justify-between">
             <Link
               href={"/"}
-              className="w-full h-full flex items-center justify-start"
+              className="w-full h-full flex items-center justify-start bg-red-300"
             >
-              <img src="/logo.png" alt="Logo" className=" w-28 h-12" />
+              <img src="/logo.png" alt="Logo" className=" w-32 h-12" />
             </Link>
             <p onClick={() => setShowMenuMobile(false)} className="cursor-pointer">
               <svg
