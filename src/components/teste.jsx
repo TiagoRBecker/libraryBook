@@ -104,14 +104,15 @@ const Carrousel = () => {
             {category.books?.map((book, bookIndex) => (
               <div className="w-full p-4 " key={bookIndex}>
                 <div
-                  className="w-full  px-2 py-2 h-full flex flex-col shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] "
+                  className="w-full  h-full flex flex-col shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] "
                   key={bookIndex}
                 >
                   <img
                     src={book.cover}
                     alt={book.name}
-                    className="w-[200px] h-[270px] object-fill "
+                    className="w-full h-[270px] object-fill "
                   />
+                  <div className="px-2 py-2">
                   <h2 className="text-gray-400 pt-1 ">
                     Edição Volume {book.vol}
                   </h2>
@@ -121,6 +122,8 @@ const Carrousel = () => {
                   <p className="w-full text-base truncate text-gray-600 pt-5">
                     {book.capa}
                   </p>
+                  </div>
+                 
                 </div>
               </div>
             ))}

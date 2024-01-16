@@ -94,7 +94,7 @@ const Header = () => {
             <Link href={"/magazine"}>Revistas</Link>
           </li>
           <li>
-            <Link href={"/explore"}>Explorar</Link>
+            <Link href={"/explore/free"}>Explorar</Link>
           </li>
           <li>
             <Link href={"/library"}>Biblioteca</Link>

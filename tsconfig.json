@@ -27,7 +27,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/app/(public)/account-settings/settings/page.jsx", "src/app/(public)/account-settings/favorites/page.jsx", "src/app/(public)/account-settings/requests/page.jsx", "src/app/auth/signup/page.jsx"  ],
+, "src/app/(public)/account-settings/settings/page.jsx", "src/app/(public)/account-settings/favorites/page.jsx", "src/app/(public)/account-settings/requests/page.jsx", "src/app/auth/signup/page.jsx", "src/app/(public)/explore/trending/page.jsx", "src/app/(public)/explore/recommendation/page.jsx"  ],
   "exclude": [
     "node_modules"
   ]
