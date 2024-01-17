@@ -18,10 +18,11 @@
     "@react-pdf/image": "^2.2.2",
     "@react-pdf/renderer": "^3.1.14",
     "file-loader": "^6.2.0",
+    "flip-book": "^1.9.9",
     "framer-motion": "^10.18.0",
-    "jquery": "^3.7.1",
     "next": "14.0.4",
-    "pdfjs-dist": "^3.4.120",
+    "pdfjs": "^2.5.3",
+    "pdfjs-dist": "^3.11.174",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.0.1",
@@ -30,7 +31,8 @@
     "react-slick": "^0.29.0",
     "react-spinners": "^0.13.8",
     "react-toastify": "^9.1.3",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "three": "^0.81.2"
   },
   "devDependencies": {
     "@types/react": "18.2.47",

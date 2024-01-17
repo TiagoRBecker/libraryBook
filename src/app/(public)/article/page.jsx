@@ -1,6 +1,6 @@
 "use client"
 import { Viewer, Worker,PdfJs } from '@react-pdf-viewer/core';
-import  {bookmarkPlugin}  from '@react-pdf-viewer/bookmark';
+import  {bookmarkPlugin }  from '@react-pdf-viewer/bookmark';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import { StyleSheet } from '@react-pdf/renderer';
 const Article = () => {

@@ -1,17 +1,22 @@
 /** @type {import('next').NextConfig} */
+const webpack = require('webpack');
 const nextConfig = {
    
       typescript: {
      
         ignoreBuildErrors: true,
       },
-    
-      webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+      webpack: (config, { isServer }) => {
+        const debug = process.env.NODE_ENV !== 'production';
         config.resolve.alias.canvas = false
         config.resolve.alias.encoding = false
-        return config
-    }
+        
+    
+        
+    
+        return config;
      
+}
 }
 
 module.exports = nextConfig
