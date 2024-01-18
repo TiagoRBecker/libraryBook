@@ -220,18 +220,18 @@ const BookId = ({ params }) => {
             </div>
           </div>
         </div>
-        <div className="flex">
-          <div className="w-[40%] h-full flex items-center justify-center   ">
+        <div className="w-full flex flex-col items-center justify-center lg:flex-row">
+          <div className="w-full  md:w-[40%] h-full flex items-center justify-center   ">
             <img
               src={book?.cover}
               alt={book?.vol}
-              className="w-[400px] h-[550px] object-fill "
+              className="w-full lg:w-[400px] h-[550px] object-fill  "
             />
           </div>
-          <div className="w-[60%] px-5 flex flex-col gap-2">
+          <div className="w-full  lg:w-[60%] px-5 flex flex-col gap-2 ">
             <h1 className="text-2xl text-gray-500 uppercase">{book?.name}</h1>
             <h2 className="text-gray-400 ">Edição Volume {book?.vol}</h2>
-            <div className="flex items-center gap-2">
+            <div className="w-full  flex items-center jus gap-2">
               <p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -255,7 +255,7 @@ const BookId = ({ params }) => {
                 Adiconar aos Favoritos
               </span>
             </div>
-            <p className="w-full text-left ">
+            <p className="w-full ">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore
               vero, vel in molestiae quam porro, ex odit atque odio nemo enim
               ut? Perspiciatis hic quo tenetur odit eaque veritatis dignissimos!
@@ -297,8 +297,8 @@ const BookId = ({ params }) => {
             <p className="text-[9px]">
               Saiba mais sobre os produto digital 3d Plash
             </p>
-            <div className="w-full h-full grid grid-cols-3 gap-2">
-              <div className="w-full border-[1px] border-gray-400 py-1 px-1 ">
+            <div className="w-full h-full grid-cols-1 gap-2  sm:grid sm:grid-cols-2 ">
+              <div className="w-full mt-2  border-[1px] border-gray-400 py-1 px-1 ">
                 <button
                   onClick={handleShowModal}
                   className="w-full bg-[#14b7a1] px-10 py-4 text-white border-[1px]  rounded-md uppercase text-sm transition duration-700 ease-in-out  hover:bg-black hover:text-white "
@@ -380,7 +380,7 @@ const BookId = ({ params }) => {
                   </ul>
                 </div>
               </div>
-              <div className="w-full border-[1px] border-gray-400 py-1 px-1">
+              <div className="w-full mt-2  border-[1px] border-gray-400 py-1 px-1">
                 <button
                   onClick={handleShowModal}
                   className="w-full bg-[#14b7a1]   border-[1px]  px-10 py-4 text-white rounded-md uppercase text-sm transition duration-700 ease-in-out hover:bg-black hover:text-white"
@@ -467,7 +467,7 @@ const BookId = ({ params }) => {
         </div>
         <div className="px-4">
           <h1 className="py-4 uppercase text-black font-bold">Nesta Edição</h1>
-          <div className="w-full grid grid-cols-4 gap-2">
+          <div className="w-full h-full grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 py-5">
             {books.map((book, index) => (
               <div
                 className="w-full h-full flex flex-col  shadow-md px-4 py-2 rounded-md "
@@ -485,8 +485,8 @@ const BookId = ({ params }) => {
                     {book.name}
                   </h1>
                 </div>
-                <div className="flex">
-                  <p className="w-[60%] h-[130px] overflow-hidden text-base text-left text-gray-600 pt-1 px-2">
+                <div className="flex flex-col md:flex-row">
+                  <p className="w-full md:w-[60%] h-[130px] overflow-hidden text-base text-left text-gray-600 pt-1 px-2">
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                     Minima dolorem rem provident eius fugit nesciunt, odit
                     eligendi modi illum itaque quisquam ducimus beatae vitae qui
@@ -516,7 +516,7 @@ const BookId = ({ params }) => {
                       />
                     </svg>
                     <p className="tex-base text-gray-400">
-                      {date.toLocaleString("pt-br")}{" "}
+                      {date.toLocaleString("pt-br")}
                     </p>
                   </div>
                   <div className="flex items-center gap-1">
@@ -542,7 +542,7 @@ const BookId = ({ params }) => {
           </div>
         </div>
         <div className=" py-20 w-full h-full px-4">
-          <div className="flex w-[96%] items-center justify-between">
+          <div className="flex  w-[80%] md:w-[96%] items-center justify-between">
           <h1 className="uppercase font-bold text-black">Edições Recentes</h1>
           <Link href={`/magazine`}>
             <h3 className="text-[#14B7A1] ">Ver todas</h3>
