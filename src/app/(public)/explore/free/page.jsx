@@ -1,79 +1,86 @@
+"use client";
 import Link from "next/link";
 import ArticleNav from "../../../../components/NavArticle";
-
+import { books } from "../../../../components/constants";
+import { readingTime } from "reading-time-estimator";
+import { useState } from "react";
 const Free = () => {
+  const [read, setRead] = useState(null);
+
+  const result = readingTime(
+    "rem rem provident eius fugit nesciunt, odit eligendi modi illum itaque quisquam ducimus beatae vitae qui numquam aperiam quos illo blanditiis!Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima dolorem rem provident eius fugit nesciunt, odit eligendi modi illum itaque quisquam ducimus beatae vitae qui numquam aperiam quos illo blanditiis!Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima dolorem rem provident eius fugit nesciunt, odit eligendi modi illum itaque quisquam ducimus beatae vitae qui numquam aperiam quos illo blanditiis!Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima dolorem rem provident eius fugit nesciunt, odit eligendi modi illum itaque quisquam ducimus beatae vitae qui numquam aperiam quos illo blanditiis!Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima dolorem rem provident eius fugit nesciunt, odit eligendi modi illum itaque quisquam ducimus beatae vitae qui numquam aperiam quos illo blanditiis!Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima dolorem rem provident eius fugit nesciunt, odit eligendi modi illum itaque quisquam ducimus beatae vitae qui numquam aperiam quos illo blanditiis!Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima dolorem rem provident eius fugit nesciunt, odit eligendi modi illum itaque quisquam ducimus beatae vitae qui numquam aperiam quos illo blanditiis!Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima dolorem rem provident eius fugit nesciunt, odit eligendi modi illum itaque quisquam ducimus beatae vitae qui numquam aperiam quos illo blanditiis!Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima dolorem rem provident eius fugit nesciunt, odit eligendi modi illum itaque quisquam ducimus beatae vitae qui numquam aperiam quos illo blanditiis!Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima dolorem rem provident eius fugit nesciunt, odit eligendi modi illum itaque quisquam ducimus beatae vitae qui numquam aperiam quos illo blanditiis!",
+    200,
+    "pt-br"
+  );
+
+
   return (
-    <section className="w-full h-full">
+    <section className="w-full h-full py-10">
       <ArticleNav />
-      <div className="w-full grid grid-cols-3 px-4 gap-4">
-        <div className="w-full h-full flex flex-col gap-3">
-         <div className="w-full h-full">
-          <h2>PRO SKATER :1222</h2>
-          <h1>Titulo</h1>
-          <div className="flex w-full gap-2">
-            <p className="w-[60%]">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-              expedita ipsum quisquam culpa tempora rem! Architecto nulla optio
-              reiciendis iusto doloribus odit voluptas, aperiam sit accusamus
-              repellat nesciunt quia officiis?
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-4 gap-6">
+        {books.map((book, index) => (
+          <div
+          className="w-full h-full flex flex-col  shadow-md px-4 py-2 rounded-md "
+            key={index}
+          >
+            <img
+              src={book.cover}
+              alt={book.name}
+              className="w-full h-full   md:w-[313px] md:h-[270px] object-fill "
+            />
+            <h2 className="text-black pt-1 ">
+              <span className="text-[#14b7a1]">Plash MagazineEdição </span>|
+              Volume{book.vol}
+            </h2>
+
+            <h1 className="w-full font-bold text-lg truncate text-black pt-1 uppercase">
+              {book.name}
+            </h1>
+            <p className="w-full text-base text-left text-gray-600 pt-1">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima
+              dolorem rem provident eius fugit nesciunt, odit eligendi modi
+              illum itaque quisquam ducimus beatae vitae qui numquam aperiam
+              quos illo blanditiis!
             </p>
-            <img src="/vol1.png" alt="" className="w-[26%] h-36 object-fill rounded-md" />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-4 h-4 text-gray-400"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  />
+                </svg>
+                <p className="tex-base text-gray-400">{result.minutes} min</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-4 h-4 text-gray-400"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
+                  />
+                </svg>
+                <p className="tex-base text-gray-400">Guardar</p>
+              </div>
+            </div>
           </div>
-         </div>
-         <div className="w-full h-full flex flex-col gap-2">
-        <img src="/vol1.png" alt=""  className="w-full h-52 rounded-md object-cover"/>
-         <div className="">
-         <h2>PRO SKATER :1222</h2>
-          <h1>Titulo</h1>
-          <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-              expedita ipsum quisquam culpa tempora rem! Architecto nulla optio
-              reiciendis iusto doloribus odit voluptas, aperiam sit accusamus
-              repellat nesciunt quia officiis?
-            </p>
-         </div>
-         <div className="flex">
-            <p>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                />
-              </svg>
-            </p>
-            <p>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"
-                />
-              </svg>
-            </p>
-          </div>
-        </div> 
-        </div>
-        
-          
-     </div>
-        
-        
-   
+        ))}
+      </div>
     </section>
   );
 };
