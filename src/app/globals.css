@@ -27,7 +27,9 @@ body {
   border-radius: 6px;
   /* Borda arredondada do "puxador" */
 }
-
+.slide-item{
+  width: 70px;
+}
 /* Cor do fundo da área da barra de rolagem */
 ::-webkit-scrollbar-track {
   background-color: #f1f1f1;
