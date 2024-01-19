@@ -135,13 +135,13 @@ const Header = () => {
                 </p>
               </div>
               <li>
-                <Link href={"/magazine"}>Revistas</Link>
+                <Link href={"/magazine"} onClick={()=>setShowMenuMobile(false)}>Revistas</Link>
               </li>
               <li>
-                <Link href={"/explore"}>Explorar</Link>
+                <Link href={"/explore/free"} onClick={()=>setShowMenuMobile(false)}>Explorar</Link>
               </li>
               <li>
-                <Link href={"/library"}>Biblioteca</Link>
+                <Link href={"/library"} onClick={()=>setShowMenuMobile(false)}>Biblioteca</Link>
               </li>
               <li></li>
             </ul>
