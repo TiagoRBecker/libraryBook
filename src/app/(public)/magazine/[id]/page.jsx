@@ -90,6 +90,9 @@ const BookId = ({ params }) => {
   };
 
   useEffect(() => {
+    if (showModal) {
+      document.body.classList.add("overflow-hidden");
+    } 
     if (findBook) {
       setBook(findBook);
     }
@@ -120,16 +123,16 @@ const BookId = ({ params }) => {
   };
   const date = new Date();
   return (
-    <section className="w-full h-full py-4 ">
-      <div className="px-4 py-10 w-full h-full relative mt-10">
-        <div
-          className={
-            showModal
-              ? "w-full h-screen bg-black bg-opacity-45 absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center py-2"
-              : "hidden"
-          }
-        >
-          <div className="w-[600px] h-full bg-white rounded-md relative">
+    <>
+     
+     <div
+  className={`${
+    showModal
+      ? "w-full  h-screen fixed bg-black bg-opacity-45 z-50  top-0 left-0 right-0 bottom-0 flex justify-center py-10 "
+      : "hidden"
+  }`}
+>
+          <div className="w-full md:w-[600px] max-h-[100vh] fixed top-16 bg-white rounded-md overflow-y-auto"  >
             <p
               className="absolute top-2 right-2 cursor-pointer"
               onClick={() => setShowModal(false)}
@@ -149,30 +152,30 @@ const BookId = ({ params }) => {
                 />
               </svg>
             </p>
-            <h1 className="py-4 text-xl px-4">
-              Total de item no carrinho {cart.length}
+            <h1 className="py-4 text-xl px-4 text-center text-gray-400">
+              Total de item no carrinho  <span className="text-[#14b7a1]">{cart.length}</span>
             </h1>
-            <div className="flex  flex-col gap-2 px-4  ">
-              <div className="w-full h-[350px]   overflow-auto">
+            <div className=" flex items-center justify-center flex-col gap-2  ">
+              <div className="w-full h-[300px] border-b-2 border-[#14b7a1]   overflow-auto">
                 {cart.map((book, index) => (
-                  <div className="flex border-b-2 border-gray-200 py-5 ">
-                    <div className="w-[60%] flex flex-col gap-2">
+                  <div className="flex border-b-2 border-gray-200 py-5 px-4 ">
+                    <div className="w-full flex flex-col gap-2" key={index}>
                       <div className="flex gap-2">
+                        <div className="w-[30%]">
                         <img
                           src={book.cover}
                           alt={book.name}
                           className="w-20 h-20"
                         />
-                        <div className="flex flex-col gap-2 px-2">
+                        </div>
+                        <div className="w-[40%]   flex flex-col gap-2 px-2">
                           <p>{book.name}</p>
-                          <span className="text-sm px-2 py-[1px] bg-black text-white rounded-xl w-[80px] flex items-center justify-center">
-                            Edições
+                          <span className="text-sm px-2 py-[1px] bg-[#14b7a1] uppercase text-white text-[12px] rounded-xl w-[80px] flex items-center justify-center">
+                            Edição
                           </span>
                           <p>Volume: {book.vol}</p>
                         </div>
-                      </div>
-                    </div>
-                    <div className="w-[40%] flex flex-col px-2  ">
+                        <div className="w-[40%] flex flex-col px-2  ">
                       <p
                         className=" w-full flex items-center justify-end cursor-pointer"
                         onClick={() => removeItem(book)}
@@ -193,28 +196,39 @@ const BookId = ({ params }) => {
                         </svg>
                       </p>
                       <p className="flex items-center justify-end pt-10">
-                        {" "}
-                        {book.price?.toLocaleString("pt-br", {
+                        
+                        { book.price && book.price?.toLocaleString("pt-br", {
                           style: "currency",
                           currency: "BRL",
                         })}
                       </p>
                     </div>
+                      </div>
+                    </div>
+                   
                   </div>
                 ))}
               </div>
-              <div className="flex items-center justify-center py-4 gap-4">
+              <div className="w-full flex items-center justify-between  px-4">
+                <h2 className="text-gray-300">Divisão de Lucro 100%</h2>
+                <p className="text-base text-[#14b7a1]">R$ 489,00</p>
+              </div>
+              <div className="w-full flex items-center justify-between py-2 px-4">
+                <h2 className="text-black font-bold">Total <span className="text-gray-300 font-light">(incluindo impostos)</span></h2>
+                <p className="font-bold text-[#14b7a1]">R$ 489,00</p>
+              </div>
+              <div className="w-full flex flex-col md:flex-row items-center justify-center  px-4 py-1 gap-4">
                 <button
                   onClick={handleGoToCart}
-                  className="w-[50%] bg-batext-black border-[1px] border-black px-10 py-4 text-black rounded-md uppercase text-sm transition duration-700 ease-in-out hover:bg-black hover:text-white"
+                  className="w-full md:w-[50%] bg-[#14b7a1] border-[1px]  px-10 py-4 text-white rounded-md uppercase text-sm  "
                 >
                   Comprar Agora
                 </button>
                 <button
                   onClick={() => setShowModal(false)}
-                  className="w-[50%] bg-batext-black border-[1px] border-black px-10 py-4 text-black rounded-md uppercase text-sm transition duration-700 ease-in-out hover:bg-black hover:text-white"
+                  className="w-full md:w-[50%] bg-[#14b7a1] border-[1px]  px-10 py-4 text-white rounded-md uppercase text-sm "
                 >
-                  Continuar Comprando
+                  Continue Comprando
                 </button>
               </div>
             </div>
@@ -516,7 +530,7 @@ const BookId = ({ params }) => {
                       />
                     </svg>
                     <p className="tex-base text-gray-400">
-                      {date.toLocaleString("pt-br")}
+                      tempo
                     </p>
                   </div>
                   <div className="flex items-center gap-1">
@@ -582,8 +596,8 @@ const BookId = ({ params }) => {
         </div>
 
         <ToastContainer />
-      </div>
-    </section>
+      
+        </>
   );
 };
 
