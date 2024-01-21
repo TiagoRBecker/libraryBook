@@ -1,8 +1,11 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { signOut, useSession } from "next-auth/react"
 
 const Header = () => {
+   const {data:session} = useSession()
+   console.log(session)
   const [position, setPosition] = useState(0);
   const [visible, setVisible] = useState(true);
   const [showUser, setShowUser] = useState(false);
@@ -190,8 +193,8 @@ const Header = () => {
           </svg>
         </div>
         <div
-          id="teste"
-          className="cursor-pointer transiton duration-150"
+         
+          className="cursor-pointer transiton duration-150 flex items-center gap-1"
           onClick={showMenu}
         >
           <svg
@@ -208,6 +211,7 @@ const Header = () => {
               d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
             />
           </svg>
+          <p>{session?.user.name}</p>
         </div>
         <div
           className={
@@ -284,7 +288,7 @@ const Header = () => {
               <p>Pedidos</p>
             </div>
           </Link>
-          <div className=" flex gap-2 items-center">
+          <div className=" flex gap-2 items-center" onClick={()=>signOut({callbackUrl:"/"})}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
