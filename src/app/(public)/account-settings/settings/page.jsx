@@ -25,19 +25,19 @@ const Settings = () => {
       case 0:
         return (
           <div className="w-full h-full flex  flex-col px-10   gap-5  ">
-            <div className="w-full flex items-center justify-between border-b-[1px]   border-gray-400 py-3">
+            <div className="w-full flex items-center justify-between border-b-[1px]   border-[#14b7a1] py-3">
               <h1 className="uppercase text-2xl font-bold">Editar Perfil</h1>
               <hr />
-              <button className="text-sm bg-black px-3 py-1 rounded-2xl text-white">
+              <button className="text-sm bg-[#14b7a1] px-3 py-1 rounded-2xl text-white">
                 Conta confirmada
               </button>
             </div>
 
             <div className="w-full">
               <form className="w-full h-full  py-4">
-                <div className="flex">
-                  <div className="w-[30%] h-full flex flex-col gap-6 items-center justify-center">
-                    <div className="w-28 h-28 bg-gray-400 rounded-md flex items-center justify-center">
+                <div className="flex-col md:flex-row md:flex">
+                  <div className="w-full md:w-[30%] h-full flex flex-col gap-6 items-center justify-center">
+                    <div className="w-28 h-28 bg-[#14b7a1] rounded-md flex items-center justify-center">
                       <input type="file" hidden id="file" onChange={upload} />
                       {loading ? (
                         <Spinner />
@@ -75,12 +75,12 @@ const Settings = () => {
                     </div>
                     <label
                       htmlFor="file"
-                      className="  border-[1px] border-black px-3 py-1  text-black rounded-md  text-sm transition duration-700 ease-in-out hover:bg-black hover:text-white cursor-pointer"
+                      className="  bg-[#14b7a1]  px-3 py-1  text-white rounded-md  text-sm "
                     >
                       Carregar Arquivo
                     </label>
                   </div>
-                  <div className="w-[70%] h-full flex flex-col gap-8 ">
+                  <div className="w-full md:w-[70%] h-full flex flex-col gap-8 ">
                     <div className="flex gap-2   w-full">
                       <div className="w-[50%] flex flex-col gap-2">
                         <label htmlFor="">Nome</label>
@@ -118,8 +118,8 @@ const Settings = () => {
                   </div>
                 </div>
                 <div className="w-full py-4 flex items-center justify-center">
-                  <button className="w-full bg-black px-4 py-1 rounded-sm text-white">
-                    Atualizar conta
+                  <button className="w-[250px] bg-[#14b7a1] px-4 py-2 rounded-md text-white">
+                    Atualizar Perfil
                   </button>
                 </div>
               </form>
@@ -129,11 +129,11 @@ const Settings = () => {
         break
       case 1:
         return (
-          <div className="w-full h-full flex  flex-col px-10   gap-5  ">
-            <div className="w-full flex items-center justify-between border-b-[1px]   border-gray-400 py-3">
+          <div className="w-full h-full flex  flex-col px-10    gap-5  ">
+            <div className="w-full flex items-center justify-between border-b-[1px]   border-[#14b7a1] py-3">
               <h1 className="uppercase text-2xl font-bold">Mudar Senha</h1>
               <hr />
-              <button className="text-sm bg-black px-3 py-1 rounded-2xl text-white">
+              <button className="text-sm bg-[#14b7a1]     px-3 py-1 rounded-2xl text-white">
                 Conta confirmada
               </button>
             </div>
@@ -159,20 +159,101 @@ const Settings = () => {
                   className="w-full h-9 rounded-md outline-none border-[1px]  border-gray-200 pl-4"
                 />
               </div>
-              <button className="w-full bg-black px-4 py-1 rounded-sm text-white">
-                Atualizar
-              </button>
+              <div className="w-full py-4 flex items-center justify-center">
+                  <button className="w-[250px] bg-[#14b7a1] px-4 py-2 rounded-md text-white">
+                    Atualizar Senha
+                  </button>
+                </div>
             </form>
           </div>
         );
         break
+        case 2:
+          return (
+            <div className="w-full h-full flex  flex-col px-10    gap-5  ">
+              <div className="w-full flex items-center justify-between border-b-[1px]   border-[#14b7a1] py-3">
+                <h1 className="uppercase text-2xl font-bold">MEU ENDEREÇO</h1>
+                <hr />
+                <button className="text-sm bg-[#14b7a1]     px-3 py-1 rounded-2xl text-white">
+                  Conta confirmada
+                </button>
+              </div>
+              <form className="flex flex-col gap-4 w-full">
+                <div className=" w-full h-full flex-col md:flex md:flex-row">
+                  <div className="w-full md:w-[80%]">
+                  <label htmlFor="">CEP</label>
+                  <input
+                    type="text"
+                    placeholder="Digite seu CEP"
+                    className="w-full h-9 rounded-md outline-none border-[1px]  border-gray-200 pl-4"
+                  />
+                  </div>
+                  <div className="w-full pt-0 justify-start md:w-[20%] md:pt-5 md:flex items-center md:justify-center">
+                  <Link href={"https://buscacepinter.correios.com.br/app/endereco/index.php"} target="_blank">
+                    Não sabe seu CEP?
+                  </Link>
+                  </div>
+                </div>
+                <div className="">
+                  <label>Endereço</label>
+                  <input
+                    type="text"
+                    placeholder="Digite seu endereço "
+                    className="w-full h-9 rounded-md outline-none border-[1px]  border-gray-200 pl-4"
+                  />
+                </div>
+                <div className="w-full gap-2 flex-col  md:flex md:flex-row ">
+                <div className="w-full py-3 md:w-[50%]">
+                  <label htmlFor="">Numero</label>
+                  <input
+                    type="text"
+                    placeholder="Digite o numero da residencia "
+                    className="w-full h-9 rounded-md outline-none border-[1px]  border-gray-200 pl-4"
+                  />
+                </div>
+                <div className="w-full md:w-[50%]">
+                  <label htmlFor="">Complemento</label>
+                  <input
+                    type="text"
+                    placeholder="Casa, Apartamento .. "
+                    className="w-full h-9 rounded-md outline-none border-[1px]  border-gray-200 pl-4"
+                  />
+                </div>
+                </div>
+                <div className="w-full flex-col md:flex md:flex-row gap-1">
+                <div className="w-full py-3 md:w-[50%]">
+                  <label htmlFor="">Bairro</label>
+                  <input
+                    type="text"
+                    placeholder="Digite seu bairro "
+                    className="w-full h-9 rounded-md outline-none border-[1px]  border-gray-200 pl-4"
+                  />
+                </div>
+                <div className="w-full md:w-[50%]">
+                  <label htmlFor="">Estado</label>
+                  <input
+                    type="text"
+                    placeholder="Digite o estado: RS,SP,RJ "
+                    className="w-full h-9 rounded-md outline-none border-[1px]  border-gray-200 pl-4"
+                  />
+                </div>
+                </div>
+                <div className="w-full py-4 flex items-center justify-center">
+                    <button className="w-[250px] bg-[#14b7a1] px-4 py-2 rounded-md text-white">
+                      Atualizar Endereço
+                    </button>
+                  </div>
+              </form>
+            </div>
+          );
+          break
       case 3:
         return(
         <div className="w-full h-full flex  flex-col px-10   gap-5  ">
-        <div className="w-full flex items-center justify-between border-b-[1px]   border-gray-400 py-3">
+        <div className="w-full flex items-center justify-between border-b-[1px]   border-[#14b7a1]  py-3">
           <h1 className="uppercase text-2xl font-bold">Fechar Conta</h1>
           <hr />
-          <button className="text-sm bg-black px-3 py-1 rounded-2xl text-white">
+          <button className="text-sm bg-[#14b7a1]  px-3 py-1 rounded-2xl text-white">
             Conta confirmada
           </button>
         </div>
@@ -187,18 +268,18 @@ const Settings = () => {
               <label htmlFor="">Digite sua senha atual</label>
               <input
                 type="text"
-                placeholder="Digite seu endereço"
+                placeholder="Digite sua senha"
                 className="w-full h-9 rounded-md outline-none border-[1px]  border-gray-200 pl-4"
               />
             </div>
           </div>
-          <div className="w-[20%]">
-            <button className="w-full bg-black px-4 py-1 rounded-sm text-white">
-              Deletar conta
-            </button>
+          <div className="w-full flex items-center justify-center">
+          <button className="w-[250px] bg-[#14b7a1] px-4 py-2 rounded-md text-white">
+                      Deletar conta
+                    </button>
           </div>
         </form>
-        <div className="w-full flex flex-col gap-5 bg-gray-300 rounded py-2 px-2">
+        <div className="w-full flex flex-col gap-5 bg-[#14b7a1]  text-white rounded py-2 px-2">
           <div className="flex gap-2">
           <p>
             <svg
@@ -223,7 +304,8 @@ const Settings = () => {
           <p>Se voçê deseja apenas alterar o perfil. </p>
 
            
-          <button className="w-36 bg-black px-4 py-1 rounded-sm text-white">
+          <button onClick={()=>setCurrentIndex(0)} className="w-[250px] bg-black px-4 py-2 rounded-md text-white">
+                   
              Perfil
             </button>
           </div>
@@ -343,13 +425,13 @@ const Settings = () => {
     setCurrentIndex(id)
    }
   return (
-    <section className="w-full h-full flex pt-10 ">
-      <div className="w-[40%] h-full">
+    <section className="w-full h-full flex-col md:flex md:flex-row pt-10 ">
+      <div className="w-full md:w-[40%] h-full">
         
           {
             arrayLink.map((link,index)=>(
-            <ul className={ index === currentIndex ?"w-full h-full border-t-[1px] border-b-[1px] border-r-[1px] border-gray-400 bg-gray-400  flex flex-col text-white ":"w-full h-full border-t-[1px] border-b-[1px] border-r-[1px] border-gray-400   flex flex-col "}>
-            <li onClick={()=>getIndex(index)}className="py-2 px-2 border-b-[2px] border-gray-400 hover:bg-gray-300 text-[#">
+            <ul className={ index === currentIndex ? "w-full h-full bg-[#14b7a1]  flex flex-col text-white ":"w-full h-full   flex flex-col "}>
+            <li onClick={()=>getIndex(index)}className="py-2 px-2 ">
               { link}
             </li>
             </ul>

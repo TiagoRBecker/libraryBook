@@ -1,21 +1,20 @@
 "use client";
-import { Inter } from "next/font/google";
 import Link from "next/link";
 
 import { usePathname } from "next/navigation";
 
-const inter = Inter({ subsets: ["latin"] });
+
 
 export default function userSettingsLayout({ children }) {
   const path = usePathname();
   return (
     <div className="w-full h-full flex flex-col ">
-      <nav className=" flex  items-center pl-32 py-10 w-full border-b-[1px] border-gray-400 pt-[90px] ">
+      <nav className="pl-2 md:flex  items-center md:pl-32 py-10 w-full border-b-[2px] border-[#14b7a1] pt-[90px] ">
         <ul className="flex  gap-6">
           <li className="flex flex-col gap-3">
             <Link
               href={"/account-settings/settings"}
-              className="flex items-center  gap-3"
+               className={path === "/account-settings/settings" ? "text-[#14b7a1] flex items-center gap-1 uppercase":"text-black flex items-center gap-1 uppercase"}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -31,14 +30,14 @@ export default function userSettingsLayout({ children }) {
                   d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
                 />
               </svg>
-              <p>Conta</p>
+              <p> Conta</p>
             </Link>
             
           </li>
           <li className="flex flex-col gap-3">
             <Link
               href={"/account-settings/requests"}
-              className="flex items-center  gap-3"
+              className={path === "/account-settings/requests" ? "text-[#14b7a1] flex items-center gap-1 uppercase":"text-black flex items-center gap-1 uppercase"}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +60,7 @@ export default function userSettingsLayout({ children }) {
           <li className="flex flex-col gap-3">
             <Link
               href={"/account-settings/favorites"}
-              className="flex items-center gap-2"
+              className={path === "/account-settings/favorites" ? "text-[#14b7a1] flex items-center gap-1 uppercase":"text-black flex items-center gap-1 uppercase"}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
