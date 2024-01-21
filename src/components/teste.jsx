@@ -79,7 +79,15 @@ const Carrousel = () => {
       {
         breakpoint: 480,
         settings: {
-          centerMode: true,
+         
+          slidesToShow: 2,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 320,
+        settings: {
+         
           slidesToShow: 1,
           slidesToScroll: 1
         }
