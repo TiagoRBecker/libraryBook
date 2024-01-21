@@ -101,16 +101,16 @@ const Carrousel = () => {
         <div className="relative py-9">
           <div
             key={index}
-            className="flex w-[80%] mx-auto items-center justify-between px-4"
+            className="w-full flex  md:w-[80%] mx-auto items-center justify-between px-4"
           >
-            <h1>{category.name}</h1>
+            <h1 className="text-base">{category.name}</h1>
             <Link href={`/categories/${category.id}`}>
-            <h3 className="text-[#14B7A1] ">Ver todas</h3>
+            <h3 className="pr-11 text-[#14B7A1] md:text-[#14B7A1] md:pr-0">Ver todas</h3>
             </Link>
           </div>
           <Slider key={index} {...settings} className="w-full h-full mx-auto ">
             {category.books?.map((book, bookIndex) => (
-              <div className="w-full p-4 " key={bookIndex}>
+              <div className=" p-1  md:w-full md:p-4 " key={bookIndex}>
                 <div
                   className="w-full  h-full flex flex-col shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] "
                   key={bookIndex}
