@@ -69,7 +69,7 @@ const Carrousel = () => {
         }
       },
       {
-        breakpoint: 600,
+        breakpoint: 865,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
@@ -101,11 +101,11 @@ const Carrousel = () => {
         <div className="relative py-9">
           <div
             key={index}
-            className="w-full flex  md:w-[80%] mx-auto items-center justify-between px-4"
+            className="w-full flex  md:w-full  items-center justify-between px-4"
           >
             <h1 className="text-base">{category.name}</h1>
             <Link href={`/categories/${category.id}`}>
-            <h3 className="pr-11 text-[#14B7A1] md:text-[#14B7A1] md:pr-0">Ver todas</h3>
+            <h3 className="pr-11 text-[#14B7A1] md:text-[#14B7A1] md:pr-11">Ver todas</h3>
             </Link>
           </div>
           <Slider key={index} {...settings} className="w-full h-full mx-auto ">

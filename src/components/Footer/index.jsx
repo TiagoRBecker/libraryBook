@@ -3,7 +3,7 @@ import { FaFacebookF, FaInstagram, FaYoutube  } from "react-icons/fa6";
 const Footer = () => {
   return (
     <footer className="w-full h-full shadow-[0_3px_10px_rgb(0,0,0,0.2)] py-2">
-      <div className="w-full h-full grid grid-cols-5">
+      <div className="w-full h-full grid-cols-1 md:grid md:grid-cols-5">
         <div className="w-full h-full flex  justify-center ">
           <Link href={"/"}>
             <img src="/logo.png" alt="Logo" className="w-full h-12 " />
@@ -46,11 +46,11 @@ const Footer = () => {
             </nav>
         </div>
       </div>
-      <div className="w-full flex items-center justify-around pt-10 pb-1 ">
+      <div className="w-full flex flex-col gap-3 md:flex md:flex-row items-center justify-around pt-10 pb-1 ">
         <div className="">
-        <p>&copy;2021 a 2024 - Plash Todos os direitos reservados</p>
+        <p className="text-[14px] md:text-base">&copy;2021 a 2024 - Plash Todos os direitos reservados</p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex items-center justify-center gap-3">
              <Link href={"#"}>
                 Privacidade
              </Link>
@@ -61,7 +61,7 @@ const Footer = () => {
                 Cookies
              </Link>
         </div>
-        <div className="flex items-center gap-10">
+        <div className="flex items-center justify-center gap-10">
              <Link href={"#"}>
              <FaFacebookF  size={15} color="#000"/>
              </Link>

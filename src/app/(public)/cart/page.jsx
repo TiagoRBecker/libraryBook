@@ -1,24 +1,42 @@
 "use client";
-import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
-initMercadoPago("TEST-0cf4c477-1c2a-40af-ab98-cda08a7303f6");
+import { CartContext } from "../../../Context/index";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-
 import { useRouter } from "next/navigation";
-import { books } from "../../../components/constants";
-
+import { baseUrl } from "../../../utils/api";
+   initMercadoPago("TEST-0cf4c477-1c2a-40af-ab98-cda08a7303f6");
 const Cart = () => {
+ 
+
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false); //state para abrir o modal de termos de uso
-  const [termsAccepted, setTermsAccepted] = useState(false); //state para aceitar os termos
-  const [error, setError] = useState(false); //state para setar erro
+  const { cart ,removeToCart} = useContext(CartContext);
+  const [preferenceId, setPreferenceId] = useState(null);
   const [loading, setLoading] = useState(false); // loading da tela
+  console.log(cart)
   //calcula o total dos produtos
-  const totalPrice = books?.reduce((acc, item) => {
+  const totalPrice = cart?.reduce((acc, item) => {
     return acc + item.price * 1;
   }, 0);
+  const createPreference = async (e) => {
+    
+    
 
+    try {
+      const request = await fetch(`${baseUrl}/payment`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ cart }),
+      });
+
+      const response = await request.json();
+      return response.id;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   if (loading) {
     return (
       <div className="w-full h-screen flex items-center justify-center">
@@ -29,11 +47,20 @@ const Cart = () => {
       </div>
     );
   }
-
+ 
+  
+ 
+  const handleBuy = async (e) => {
+    e.preventDefault();
+    const id = await createPreference();
+    if (id) {
+      setPreferenceId(id);
+    }
+  };
   return (
     <>
       <section className="w-full h-full relative py-[4rem]">
-        {books.length <= 0 ? (
+        {cart.length <= 0 ? (
           <div className="w-full h-screen flex items-center justify-center">
             <h3 className="text-lg font-semibold text-[#072137]">
               Seu carrinho está vazio no momento
@@ -43,13 +70,13 @@ const Cart = () => {
           <div className="w-full h-full grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
             <div className="px-4 pt-8">
               <p className="text-xl font-medium">Lista de Produtos</p>
-              {books?.map((book, index) => (
+              {cart?.map((book, index) => (
                 <div className="flex border-b-2 border-gray-200 py-5 px-4 ">
                   <div className="w-full flex flex-col gap-2" key={index}>
                     <div className="flex gap-2">
                       <div className="w-[30%]">
                         <img
-                          src={book.cover}
+                          src={book.cover[0]}
                           alt={book.name}
                           className="w-20 h-20"
                         />
@@ -59,12 +86,12 @@ const Cart = () => {
                         <span className="text-sm px-2 py-[1px] bg-[#14b7a1] uppercase text-white text-[12px] rounded-xl w-[80px] flex items-center justify-center">
                           Edição
                         </span>
-                        <p>Volume: {book.vol}</p>
+                        <p>Volume: {book.volume}</p>
                       </div>
                       <div className="w-[40%] flex flex-col px-2  ">
                         <p
                           className=" w-full flex items-center justify-end cursor-pointer"
-                          onClick={() => removeItem(book)}
+                          onClick={() => removeToCart(book)}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +124,7 @@ const Cart = () => {
             <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
               <p className="text-xl font-medium">Detalhes do Pagamento</p>
               <p className="text-gray-400">Complete os detalhes do pagamento</p>
-              <form>
+              <form method="POST">
                 <div className="">
                   <label
                     htmlFor="name"
@@ -321,12 +348,13 @@ const Cart = () => {
                   <PayPalScriptProvider options={{ clientId: "test" }}>
                     <PayPalButtons style={{ layout: "horizontal" }} />
                   </PayPalScriptProvider>
-                  <Wallet
-                    initialization={{ preferenceId: "<PREFERENCE_ID>" }}
-                    customization={{ texts: { valueProp: "smart_option" } }}
-                  />
+                 
                 </div>
               </form>
+              <button onClick={handleBuy}>Pagar</button>
+              {preferenceId &&<Wallet initialization={{ preferenceId:preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}}} />}
+              
+
             </div>
           </div>
         )}

@@ -1,17 +1,17 @@
 import CredentialsProvider from "next-auth/providers/credentials";
+import jwt from "jsonwebtoken";
+import { baseUrl } from "./api";
 export const authOptions = {
-  
   session: {
     strategy: "jwt",
   },
 
   pages: {
     signOut: "/",
-    signIn:"/aut/signin"
+    signIn: "/aut/signin",
   },
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
-   
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -19,39 +19,34 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        
-          if(credentials.email != "leonardopaiva@gmail.com"  || credentials.password != "123456"){
-            throw new Error("E-mail ou senha  inválido");
-           
+        const authLogin = await fetch(`${baseUrl}/signIn`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ credentials }),
+        });
+        if (authLogin.status === 200) {
+          const data = await authLogin.json();
+          return {
+            data:data
           }
-          
-        const user ={
-            id:1,
-            name: "Leonardo Paiva",
-            email:"leonardopaiva@gmail.com",
-            avatar:"/user.png"
+        }else{
+          throw new Error("E-mail ou senha inválida")
         }
-       
-        
-        return {
-          id: user?.id,
-          name: user?.name,
-          email: user?.email,
-          image: user?.image,
-        };
       },
     }),
   ],
   callbacks: {
-    jwt: async ({ token, user })=> {
+    jwt: async ({ token, user }) => {
       if (user) {
         token.user = user;
       }
       return token;
     },
-    session: async ({ session, token })=> {
+    session: async ({ session, token }) => {
       if (token) {
-        session.user = token.user
+        session.user = token.user;
       }
       return session;
     },

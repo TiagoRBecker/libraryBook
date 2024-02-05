@@ -1,18 +1,24 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { signOut, useSession } from "next-auth/react"
+import { useContext, useEffect, useState } from "react";
+import { signOut, useSession } from "next-auth/react";
+import { baseUrl } from "../../utils/api";
+import { CartContext } from "../../Context";
 
 const Header = () => {
-   const {data:session} = useSession()
-   console.log(session)
+  const { data: session } = useSession();
+ console.log(session)
+  const {cart } = useContext(CartContext)
   const [position, setPosition] = useState(0);
   const [visible, setVisible] = useState(true);
   const [showUser, setShowUser] = useState(false);
   const [showMenuMobile, setShowMenuMobile] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [openCategory, setOpenCategory] = useState(false);
+  const cls = visible ? "visible_menu" : "hidden_menu";
 
-  useEffect(() => {}, []);
   useEffect(() => {
+    getCategories();
     const handleResize = () => {
       const viewWidth = window.innerWidth;
       if (viewWidth > 770) setShowMenuMobile(false);
@@ -29,6 +35,10 @@ const Header = () => {
       let moving = window.scrollY;
       if (showUser) {
         setShowUser(false);
+        
+      }
+      if(openCategory){
+        setOpenCategory(false)
       }
       setVisible(position > moving);
       setPosition(moving);
@@ -50,9 +60,7 @@ const Header = () => {
       document.body.classList.remove("overflow-hidden");
       window.removeEventListener("resize", handleResize);
     };
-  }, [position, showUser, showMenuMobile]);
-
-  const cls = visible ? "visible_menu" : "hidden_menu";
+  }, [position, showUser, showMenuMobile,openCategory]);
 
   const showMenu = () => {
     setShowUser(!showUser);
@@ -60,7 +68,18 @@ const Header = () => {
   const handleMenuMobile = () => {
     setShowMenuMobile(!showMenuMobile);
   };
-
+  const getCategories = async () => {
+    const categories = await fetch(`${baseUrl}/categories`, {
+      method: "GET",
+      cache: "no-cache",
+    });
+    const response = await categories.json();
+    setCategories(response);
+    return;
+  };
+  const handleOpenCategory = () => {
+    setOpenCategory(!openCategory);
+  };
   return (
     <header className={cls}>
       <div className="w-[70%] justify-start md:w-[30%]  h-full flex items-center md:justify-center gap-4">
@@ -91,10 +110,26 @@ const Header = () => {
         </Link>
       </div>
 
-      <nav className="hidden md:w-[40%] md:flex items-center justify-center text-black relative">
+      <nav className="hidden md:w-[40%] h-full md:flex items-center justify-center text-black relative">
         <ul className=" flex  items-center gap-10 uppercase">
-          <li>
-            <Link href={"/magazine"}>Revistas</Link>
+          <li className=" cursor-pointer relative" onClick={handleOpenCategory}>
+            <div className="flex gap-2 items-center">
+              <p className="">Revistas</p>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-4 h-4"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                />
+              </svg>
+            </div>
           </li>
           <li>
             <Link href={"/explore/free"}>Explorar</Link>
@@ -104,6 +139,20 @@ const Header = () => {
           </li>
           <li></li>
         </ul>
+        <div className={openCategory ? 'block' : 'hidden'}>
+          <div className="absolute right-0 bottom-0 left-0  top-[60px] bg-white w-full h-[80vh] py-4 px-4 ">
+            <h1 className=" py-4 uppercase border-b-[1px] border-gray-400">
+              Categorias
+            </h1>
+            <div className="flex gap-3 items-center flex-wrap px-4 py-2">
+              {categories.map((name, index) => (
+                <Link href={`/categorias/${name.id}`} onClick={()=>setOpenCategory(false)} key={index}>
+                <p className="text-gray-500 hover:text-[#14b7a1] cursor-pointer">{name.name}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
       </nav>
 
       <div className="flex">
@@ -115,7 +164,11 @@ const Header = () => {
                   href={"/"}
                   className="w-full h-full flex items-center justify-start "
                 >
-                  <img src="/logo.png" alt="Logo" className=" w-32 h-12" />
+                  <img
+                    src="/logo.png"
+                    alt="Logo"
+                    className=" w-32 h-12 object-fill"
+                  />
                 </Link>
                 <p
                   onClick={() => setShowMenuMobile(false)}
@@ -138,13 +191,28 @@ const Header = () => {
                 </p>
               </div>
               <li>
-                <Link href={"/magazine"} onClick={()=>setShowMenuMobile(false)}>Revistas</Link>
+                <Link
+                  href={"/magazine"}
+                  onClick={() => setShowMenuMobile(false)}
+                >
+                  Revistas
+                </Link>
               </li>
               <li>
-                <Link href={"/explore/free"} onClick={()=>setShowMenuMobile(false)}>Explorar</Link>
+                <Link
+                  href={"/explore/free"}
+                  onClick={() => setShowMenuMobile(false)}
+                >
+                  Explorar
+                </Link>
               </li>
               <li>
-                <Link href={"/library"} onClick={()=>setShowMenuMobile(false)}>Biblioteca</Link>
+                <Link
+                  href={"/library"}
+                  onClick={() => setShowMenuMobile(false)}
+                >
+                  Biblioteca
+                </Link>
               </li>
               <li></li>
             </ul>
@@ -160,23 +228,8 @@ const Header = () => {
       </div>
 
       <div className="flex items-center justify-center gap-10 w-[30%]  relative">
-        <div className="hidden md:flex cursor-pointer transiton duration-150 ">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-8 h-8 text-black"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-            />
-          </svg>
-        </div>
-        <div className="cursor-pointer transiton duration-150 ">
+        <div className="cursor-pointer transiton duration-150  relative">
+          <Link href={"/cart"}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -191,9 +244,10 @@ const Header = () => {
               d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
             />
           </svg>
+          <p className="absolute bottom-0 right-0 w-[14px] h-[14px] rounded-full bg-[#14b7a1] text-white flex items-center justify-center text-xs">{cart.length}</p>
+          </Link>
         </div>
         <div
-         
           className="cursor-pointer transiton duration-150 flex items-center gap-1"
           onClick={showMenu}
         >
@@ -211,7 +265,7 @@ const Header = () => {
               d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
             />
           </svg>
-          <p>{session?.user.name}</p>
+          <p className="truncate">{session?.user.data.name}</p>
         </div>
         <div
           className={
@@ -288,7 +342,10 @@ const Header = () => {
               <p>Pedidos</p>
             </div>
           </Link>
-          <div className=" flex gap-2 items-center" onClick={()=>signOut({callbackUrl:"/"})}>
+          <div
+            className=" flex gap-2 items-center"
+            onClick={() => signOut({ callbackUrl: "/" })}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

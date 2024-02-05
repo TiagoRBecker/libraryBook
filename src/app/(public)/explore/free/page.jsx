@@ -17,7 +17,7 @@ const Free = () => {
   return (
     <section className="w-full h-full py-10">
       <ArticleNav />
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-4 gap-6">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 px-4 gap-6">
         {books.map((book, index) => (
           <div
           className="w-full h-full flex flex-col  shadow-md px-4 py-2 rounded-md "
@@ -36,7 +36,7 @@ const Free = () => {
             <h1 className="w-full font-bold text-lg truncate text-black pt-1 uppercase">
               {book.name}
             </h1>
-            <p className="w-full text-base text-left text-gray-600 pt-1">
+            <p className="w-full h-24 overflow-hidden text-base text-left text-gray-600 pt-1">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima
               dolorem rem provident eius fugit nesciunt, odit eligendi modi
               illum itaque quisquam ducimus beatae vitae qui numquam aperiam
