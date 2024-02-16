@@ -26,13 +26,17 @@ export const authOptions = {
           },
           body: JSON.stringify({ credentials }),
         });
+        if(authLogin.status === 404){
+          throw new Error("E-mail não cadastrado no sistema")
+        }
+        if(authLogin.status === 401){
+          throw new Error("E-mail ou senha invalidos!")
+        }
         if (authLogin.status === 200) {
           const data = await authLogin.json();
           return {
-            data:data
+            ...data
           }
-        }else{
-          throw new Error("E-mail ou senha inválida")
         }
       },
     }),

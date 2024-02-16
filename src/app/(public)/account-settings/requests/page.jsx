@@ -29,7 +29,9 @@ const Requests = () => {
   };
   console.log(order);
   return (
-    <section className="w-full h-full flex items-center justify-center mt-14 py-10">
+    <section className="w-full h-full flex items-center justify-center  py-10">
+      {
+        order.length > 0 ? 
       <TableContainer width={"80%"}>
         <Table variant="simple">
           <TableCaption>Seu Pedidos</TableCaption>
@@ -66,6 +68,12 @@ const Requests = () => {
           
         </Table>
       </TableContainer>
+      :
+      <div className="w-full h-screen flex items-center justify-center">
+      <p className="text-base text-gray-400">Nenhum pedido realizado.</p>
+</div>
+
+      }
     </section>
   );
 };

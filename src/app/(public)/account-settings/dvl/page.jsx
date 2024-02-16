@@ -30,11 +30,14 @@ const Dvl = () => {
      console.log(response)
     setDvl(response.dvlClient);
   };
-  const total = dvl.reduce((acc, currentValue) => acc + currentValue.price, 0);
-  const receive = dvl.reduce((acc, currentValue) => acc + currentValue.paidOut, 0);
-  const pay = dvl.reduce((acc,currentValue)=> acc + currentValue.toReceive,0)
+  const total = dvl?.reduce((acc, currentValue) => acc + currentValue.price, 0);
+  const receive = dvl?.reduce((acc, currentValue) => acc + currentValue.paidOut, 0);
+  const pay = dvl?.reduce((acc,currentValue)=> acc + currentValue.toReceive,0)
   return (
     <section className="w-full h-full py-10 flex flex-col items-center justify-center">
+      {
+        dvl?.length  > 0  ?
+      <>
       <div className="w-[80%] flex items-center justify-center py-4 gap-3">
         <Box  shadow={'2xl'} bg="#2E8B57" w="33%" p={8} color="white">
            <h2 className="text-center">Total</h2>
@@ -170,6 +173,12 @@ const Dvl = () => {
           </Tbody>
         </Table>
       </TableContainer>
+      </>
+      :
+      <div className="w-full h-screen flex items-center justify-center">
+            <p className="text-base text-gray-400">Nenhum DVL ativo para seu perfil.</p>
+      </div>
+}
     </section>
   );
 };

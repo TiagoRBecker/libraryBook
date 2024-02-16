@@ -7,7 +7,7 @@ const Favorites = () => {
   const { clearFavorite, favorite } = useContext(CartContext);
 
   return (
-    <section className="w-full h-full">
+    <section className="w-full h-full py-10 flex flex-col items-center justify-center">
       {favorite.length > 0 ? (
         <>
           <Grid>
@@ -41,9 +41,9 @@ const Favorites = () => {
           </button>
         </>
       ) : (
-        <div className="w-full h-full flex items-center justify-center">
-          <p className="">Voçê ainda não possui nenhum favorito.</p>
-        </div>
+        <div className="w-full h-screen flex items-center justify-center">
+        <p className="text-base text-gray-400">Nenhum item adicionado aos favoritos.</p>
+  </div>
       )}
     </section>
   );

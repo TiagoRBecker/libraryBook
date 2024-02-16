@@ -263,8 +263,8 @@ const BookId = ({ params }) => {
         </div>
       </div>
       {/*Modal*/}
-      <div className="w-full flex flex-col items-center justify-center lg:flex-row">
-        <div className="w-full  md:w-[40%] h-full flex items-center justify-center   ">
+      <div className="w-full flex flex-col justify-center lg:flex-row">
+        <div className="w-full  md:w-[40%] h-full flex     ">
           <img
             src={magazine?.cover}
             alt={magazine?.volume}
@@ -295,13 +295,8 @@ const BookId = ({ params }) => {
               Adiconar aos Favoritos
             </span>
           </div>
-          <p className="w-full ">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore
-            vero, vel in molestiae quam porro, ex odit atque odio nemo enim ut?
-            Perspiciatis hic quo tenetur odit eaque veritatis dignissimos! Lorem
-            ipsum, dolor sit amet consectetur adipisicing elit. Tempore vero,
-            vel in molestiae quam porro, ex odit atque odio nemo enim ut?
-            Perspiciatis hic quo tenetur odit eaque veritatis dignissimos!
+          <p className="w-full h-36 text-ellipsis overflow-hidden  ">
+            {magazine.description}
           </p>
           <div className="w-full h-[80px] flex flex-col gap-1 py-4">
             <div className="flex items-center gap-2 text-black relative">
@@ -519,7 +514,7 @@ const BookId = ({ params }) => {
         <h1 className="py-4 uppercase text-black font-bold">Nesta Edição</h1>
         <div className="w-full h-full grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-3 py-5">
           {magazine?.article?.map((article, index) => (
-            <Link href={`/article/${article.id}`}>
+            <Link href={`/article/${article.id}?status=${article.status}`}>
             <div
               className="w-full h-full flex flex-col  shadow-md px-4 py-2 rounded-md "
               key={index}

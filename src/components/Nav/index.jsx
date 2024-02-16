@@ -6,8 +6,8 @@ import { baseUrl } from "../../utils/api";
 import { CartContext } from "../../Context";
 
 const Header = () => {
-  const { data: session } = useSession();
- console.log(session)
+  const { data: session ,status} = useSession();
+
   const {cart } = useContext(CartContext)
   const [position, setPosition] = useState(0);
   const [visible, setVisible] = useState(true);
@@ -64,6 +64,7 @@ const Header = () => {
 
   const showMenu = () => {
     setShowUser(!showUser);
+    setOpenCategory(false)
   };
   const handleMenuMobile = () => {
     setShowMenuMobile(!showMenuMobile);
@@ -80,6 +81,7 @@ const Header = () => {
   const handleOpenCategory = () => {
     setOpenCategory(!openCategory);
   };
+  
   return (
     <header className={cls}>
       <div className="w-[70%] justify-start md:w-[30%]  h-full flex items-center md:justify-center gap-4">
@@ -106,7 +108,7 @@ const Header = () => {
           href={"/"}
           className="w-[40%] md:w-[30%] h-full flex items-center justify-center"
         >
-          <img src="/logo.png" alt="Logo" className="w-36 md:w-26 h-12" />
+          <img src="/logo.png" alt="Logo" className="w-36 md:w-26 h-12"  onClick={()=>setOpenCategory(false)}/>
         </Link>
       </div>
 
@@ -132,10 +134,10 @@ const Header = () => {
             </div>
           </li>
           <li>
-            <Link href={"/explore/free"}>Explorar</Link>
+            <Link href={"/explore/free"} onClick={()=>setOpenCategory(false)}>Explorar</Link>
           </li>
           <li>
-            <Link href={"/library"}>Biblioteca</Link>
+            <Link href={"/library"} onClick={()=>setOpenCategory(false)}>Biblioteca</Link>
           </li>
           <li></li>
         </ul>
@@ -247,7 +249,20 @@ const Header = () => {
           <p className="absolute bottom-0 right-0 w-[14px] h-[14px] rounded-full bg-[#14b7a1] text-white flex items-center justify-center text-xs">{cart.length}</p>
           </Link>
         </div>
-        <div
+        {
+          status === "loading" &&  <div
+          className="cursor-pointer transiton duration-150 flex items-center gap-1"
+          
+
+        >
+          <p className="text-sm text-gray-300">carregando</p>
+         
+        </div>
+      }
+        {
+          status === "authenticated" &&
+          <>
+          <div
           className="cursor-pointer transiton duration-150 flex items-center gap-1"
           onClick={showMenu}
         >
@@ -265,7 +280,7 @@ const Header = () => {
               d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
             />
           </svg>
-          <p className="truncate">{session?.user.data.name}</p>
+          <p className="truncate">{session?.user?.name}</p>
         </div>
         <div
           className={
@@ -277,7 +292,7 @@ const Header = () => {
           <h3 className="text-black font-bold  py-2">Perfil Usuário</h3>
 
           <Link
-            href={"/account-settings/settings"}
+            href={"/account-settings/settings/edit-perfil"}
             onClick={() => setShowUser(false)}
           >
             <div className="flex gap-2 items-center">
@@ -363,6 +378,33 @@ const Header = () => {
             <p> Sair</p>
           </div>
         </div>
+          </>
+        }
+         {
+          status === "unauthenticated" &&  <div
+          className="cursor-pointer transiton duration-150 flex items-center gap-1"
+          
+
+        >
+          <Link href={"/auth/signin"}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-8 h-8 text-black"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+            />
+          </svg>
+          </Link>
+        </div>
+      }
+        
       </div>
     </header>
   );

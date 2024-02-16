@@ -11,11 +11,11 @@ export default function RootLayout({ children }) {
   return (
   
   
-    <html lang="en">
+    <html lang="pt-br">
       <SessionProvider>
       <CartProvider>
     
-      <body className={inter.className}>
+      <body >
       <Providers>{children}</Providers>
         
         </body>

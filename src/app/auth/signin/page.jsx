@@ -66,7 +66,7 @@ const handleSubmit = async (e)=>{
                 <div className="w-full md:w-[450px] border-b-2 border-[#14b7a1] pt-14">
 
                 </div>
-                <p className="pt-4">Ainda não tem conta? <Link href={"/signup"} className="text-[#14b7a1]">Cadastre-se!</Link></p>
+                <p className="pt-4">Ainda não tem conta? <Link href={"/auth/signup"} className="text-[#14b7a1]">Cadastre-se!</Link></p>
             </div>
         </div>
     </section>);

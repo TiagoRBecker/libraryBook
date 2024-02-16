@@ -26,7 +26,7 @@ const Carrousel = () => {
      
         
     return ( 
-
+      <section className="w-full h-full mb-16">
      
         <Slider {...settings} className="w-full h-full md:h-[300px] mt-[62px] ">
           
@@ -44,7 +44,7 @@ const Carrousel = () => {
           
          
         </Slider>
-     
+        </section>
      );
 }
  

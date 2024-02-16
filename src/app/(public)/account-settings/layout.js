@@ -11,9 +11,9 @@ export default function userSettingsLayout({ children }) {
         <ul className="flex  gap-6">
           <li className="flex flex-col gap-3">
             <Link
-              href={"/account-settings/settings"}
+              href={"/account-settings/settings/edit-perfil"}
               className={
-                path === "/account-settings/settings"
+                path === "/account-settings/settings/edit-perfil"
                   ? "text-[#14b7a1] flex items-center gap-1 uppercase"
                   : "text-black flex items-center gap-1 uppercase"
               }
