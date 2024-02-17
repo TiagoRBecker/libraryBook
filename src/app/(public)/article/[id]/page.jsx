@@ -11,7 +11,6 @@ import { useSearchParams } from "next/navigation";
 const Article = ({ params }) => {
   const getParamsUrl = useSearchParams();
   const slug = getParamsUrl.get("status");
-  console.log(slug);
   useEffect(() => {
     getArticle();
   }, []);
@@ -73,20 +72,20 @@ const Article = ({ params }) => {
 
   if (loading) {
     return (
-      <section className="w-full h-screen flex items-center justify-center mt-16">
+      <section className="w-full h-screen flex items-center justify-center py-10">
         <Spinner />
       </section>
     );
   }
  
   return (
-    <section className="w-full flex gap-5 min-full  m-16">
+    <section className="w-full h-full flex gap-5 min-full mt-16   ">
       {article && article.articlepdf ? (
         <Worker
           workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}
           style={{ width: "70%" }}
         >
-          <div className="w-[70%] bg-red-300 ">
+          <div className="w-[70%]  ">
             <Viewer fileUrl={article?.articlepdf} style={{ width: "100%" }} />
           </div>
         </Worker>
@@ -122,10 +121,10 @@ const Article = ({ params }) => {
         </div>
       )}
 
-      <div className="w-[30%]  ">
+      <div className="w-[30%]  fixed right-0 top-6  ">
         <div className="w-full  flex flex-col items-center justify-center gap-2  ">
           <img
-            src={article.magazine?.cover[0]}
+            src={article.magazine?.cover}
             alt={article.magazine?.name}
             className="w-1/2 mt-10 h-[270px] object-fill"
           />
