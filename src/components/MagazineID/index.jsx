@@ -252,7 +252,7 @@ const MagazineID = async ({
         </div>
       </div>
       <div>
-        {data.article && data.article.length > 0 &&(
+        {data?.article && data?.article.length > 0 &&(
           <div className="w-full px-4">
             <h1 className="py-4 uppercase text-black font-bold">
               Artigos nesta Edição

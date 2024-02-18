@@ -4,7 +4,7 @@ import { baseUrl } from "../../utils/api";
 const getCategories = async (id) => {
   const categories = await fetch(`${baseUrl}/category/${id}`, {
     method: "GET",
-    cache: "force-cache",
+    cache: "no-cache",
   });
   const response = await categories.json();
   return response;

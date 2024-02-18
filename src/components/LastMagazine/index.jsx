@@ -6,7 +6,7 @@ const getLastMagazines = async () => {
   try {
     const get = await fetch(`${baseUrl}/last-magazines`, {
       method: "GET",
-      cache: "force-cache",
+      cache: "no-cache",
     });
     const response = await get.json();
     return response;
