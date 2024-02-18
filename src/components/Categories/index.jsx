@@ -25,10 +25,10 @@ const Categories = async () => {
     <section className="py-10 w-full h-full">
       {data.map((category, index) => (
         <div className="max-w-[1140px] h-full  mx-auto" key={index}>
-          <div className="w-full flex  md:w-full  items-center justify-between px-4">
+          <div className="w-full flex  md:w-full  items-center justify-between ">
             <h1 className="text-xl font-bold py-4">{category.name}</h1>
             <Link href={`/categorias/${category.id}`}>
-              <h3 className="pr-11 text-[#14B7A1] md:text-[#14B7A1] md:pr-11">
+              <h3 className=" text-[#14B7A1] md:text-[#14B7A1] ">
                 Ver todas
               </h3>
             </Link>

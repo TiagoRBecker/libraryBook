@@ -18,7 +18,7 @@ const LastMagazines = async () => {
   const data = await getLastMagazines();
   return (
     <section className=" max-w-[1140px] h-full py-10  mx-auto ">
-      <div className="w-full flex  md:w-full  items-center justify-between px-4">
+      <div className="w-full flex  md:w-full  items-center justify-between ">
         <h1 className="text-black text-xl py-10">Ultmas Edições adicionadas</h1>
 
       </div>
