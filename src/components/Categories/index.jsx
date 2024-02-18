@@ -1,0 +1,65 @@
+import Link from "next/link";
+import { baseUrl } from "../../utils/api";
+import Carrousel from "../CarrouselComponent";
+const getCategories = async () => {
+  try {
+    const getCat = await fetch(`${baseUrl}/categories`, {
+      method: "GET",
+      cache: "no-cache",
+    });
+    const response = await getCat.json();
+    return response;
+  } catch (error) {
+    console.log(error)
+  }
+  
+  
+};
+const Categories = async () => {
+   const data = await getCategories()
+
+
+
+ 
+  return (
+    <section className="py-10 w-full h-full">
+      {data.map((category, index) => (
+        <div className="w-[90%] h-full  mx-auto" key={index}>
+          <div className="w-full flex  md:w-full  items-center justify-between px-4">
+            <h1 className="text-xl font-bold py-4">{category.name}</h1>
+            <Link href={`/categorias/${category.id}`}>
+              <h3 className="pr-11 text-[#14B7A1] md:text-[#14B7A1] md:pr-11">
+                Ver todas
+              </h3>
+            </Link>
+          </div>
+
+         
+            <Carrousel>
+              {category.magazine.map((magazine, magazineIndex) => (
+                <Link href={`/magazine/${magazine.id}`} key={index} className="mb-5">
+                  <div
+                    key={magazineIndex}
+                    className=" w-[90%] h-full shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] transition ease-in-out delay-150 "
+                  >
+                    <img
+                      src={magazine.cover}
+                      alt={magazine.name}
+                      className="w-full h-[270px] object-fill"
+                    />
+                    <h1 className="text-black font-semibold pl-1">
+                      {magazine.name}
+                    </h1>
+                    <span className="pl-1">Edição {magazine.volume}</span>
+                  </div>
+                </Link>
+              ))}
+            </Carrousel>
+          
+        </div>
+      ))}
+    </section>
+  );
+};
+
+export default Categories;
