@@ -1,8 +1,7 @@
 import Link from "next/link";
-import Carrousel from "../CarrouselComponent";
+
 import { baseUrl } from "../../utils/api";
-import { Suspense } from "react";
-import Loading from "../../app/loading";
+
 const getLastMagazines = async () => {
   try {
     const get = await fetch(`${baseUrl}/last-magazines`, {
@@ -18,11 +17,12 @@ const getLastMagazines = async () => {
 const LastMagazines = async () => {
   const data = await getLastMagazines();
   return (
-    
-    <Carrousel>
-      {data?.map((magazine, index) => (
+    <section className=" max-w-[1140px] h-full py-10  mx-auto ">
+      <h1 className="text-black text-xl py-10">Ultmas Edições adicionadas</h1>
+       <div className="w-full h-full grid grid-cols-5  mx-auto gap-6" >
+       {data?.map((magazine, index) => (
         <Link href={`/magazine/${magazine.id}`} key={index}>
-          <div className="w-full p-4 ">
+          <div className="w-full  ">
             <div className="w-full  h-full flex flex-col shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] ">
               <img
                 src={magazine.cover}
@@ -45,7 +45,9 @@ const LastMagazines = async () => {
           </div>
         </Link>
       ))}
-    </Carrousel>
+       </div>
+   
+    </section>
     
   );
 };
