@@ -64,7 +64,7 @@ const MagazineID = async ({
           <p className="w-full h-full text-ellipsis overflow-hidden  ">
             {data?.description}
           </p>
-          <div className="w-full h-[80px] flex flex-col gap-1 py-4"></div>
+        
           <div className="w-[20%] flex  items-center justify-center py-4">
             <h1 className="text-[#14b7a1] font-bold px-4 border-b-2 border-[#14b7a1] text-xl">
               AVULSO
@@ -334,12 +334,7 @@ const MagazineID = async ({
         )}
       </div>
       <div className="w-full py-20 mx-auto h-full px-4">
-        <div className="flex  w-full md:w-full items-center justify-between">
-          <h1 className="uppercase font-bold text-black">Edições Recentes</h1>
-          <Link href={`/magazine`}>
-            <h3 className="text-[#14B7A1] pr-16 ">Ver todas</h3>
-          </Link>
-        </div>
+      
         <LastMagazines />
       </div>
     </Suspense>
