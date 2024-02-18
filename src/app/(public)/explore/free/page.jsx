@@ -32,7 +32,7 @@ const Free = () => {
   return (
     <section className="w-full h-full py-10">
       <ArticleNav />
-      <div className="w-[80%] mx-auto  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 px-4 gap-6">
+      <div className="max-w-[1140px] mx-auto  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-4 gap-6">
       {articles.map((book, index) => (
           <div
           className="w-full h-full flex flex-col  shadow-md  py-2 rounded-md "
@@ -42,18 +42,18 @@ const Free = () => {
             <img
               src={book.cover}
               alt={book.name}
-              className="w-full object-cover h-auto "
+              className="w-full object-cover min-h-[280px] max-h-[280px] "
             />
             <div className="px-1 py-1">
             <h2 className="text-black pt-1 ">
-              <span className="text-[#14b7a1]">Plash MagazineEdição </span>|
-              Volume{book.vol}
+              <span className="text-[#14b7a1]">{book.company} </span>|
+              Volume{book.volume}
             </h2>
 
             <h1 className="w-full font-bold text-lg truncate text-black pt-1 uppercase">
               {book.name}
             </h1>
-            <p className="w-full h-18 line-clamp-3 text-gray-300 overflow-hidden">{book.description}</p>
+            <p className="w-full h-20 py-1 line-clamp-3 text-gray-300 overflow-hidden">{book.description}</p>
             </div>
            
             <div className="px-1 py-1 flex items-center justify-between">
