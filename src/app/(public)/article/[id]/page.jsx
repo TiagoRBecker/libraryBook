@@ -104,7 +104,7 @@ const Article =  ({ params, searchParams }) => {
             <img
               src={data.magazine?.cover}
               alt={data.magazine?.name}
-              className="w-full h-[280px] object-fill"
+              className="w-full h-[310px] object-fill"
             />
             <p className="pt-1 text-gray-500">{data.magazine?.name}</p>
             <Link href={`/magazine/${data.magazine?.id}`}>
