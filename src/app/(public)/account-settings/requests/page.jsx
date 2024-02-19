@@ -54,7 +54,7 @@ const Requests = async () => {
                           <img
                             src={item.picture_url}
                             alt={item.title}
-                            className="w-32 w-20"
+                            className="w-32 "
                           />
                         </Td>
                         <Td>{item.title}</Td>

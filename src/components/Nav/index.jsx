@@ -24,7 +24,7 @@ const Header = () => {
       if (viewWidth > 770) setShowMenuMobile(false);
     };
 
-    // Adiciona um listener de redimensionamento quando o componente é montado
+
 
     const handleScroll = () => {
       // Verifica se o menu mobile está aberto, se sim, retorna sem fazer nada

@@ -1,8 +1,11 @@
 "use client"
 import { Page,Viewer, Worker, PdfJs } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
+import '@react-pdf-viewer/default-layout/lib/styles/index.css';
+import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import { StyleSheet } from "@react-pdf/renderer";
 const ReadPDF = ({pdf}) => {
+  const defaultLayoutPluginInstance = defaultLayoutPlugin();
     const styles = StyleSheet.create({
         body: {
           paddingTop: 0,
@@ -43,15 +46,16 @@ const ReadPDF = ({pdf}) => {
         },
       });
     return ( 
-      
+   
         <Worker
         workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}
-        style={{ width: "70%" ,heigth:"100%"}}
+        style={{ width: "70%", height: "100%", }}
       >
         <div className="w-[70%]  ">
-          <Viewer fileUrl={pdf} style={styles} />
+          <Viewer fileUrl={pdf}  defaultScale={1.2} style={styles} size={50}/>
         </div>
       </Worker>
+    
      
      );
 }
