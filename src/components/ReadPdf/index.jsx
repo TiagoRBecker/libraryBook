@@ -1,11 +1,8 @@
 "use client"
-import { Page,Viewer, Worker, PdfJs } from "@react-pdf-viewer/core";
+import { Viewer, Worker } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
-import '@react-pdf-viewer/default-layout/lib/styles/index.css';
-import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import { StyleSheet } from "@react-pdf/renderer";
 const ReadPDF = ({pdf}) => {
-  const defaultLayoutPluginInstance = defaultLayoutPlugin();
     const styles = StyleSheet.create({
         body: {
           paddingTop: 0,
