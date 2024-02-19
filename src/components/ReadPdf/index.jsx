@@ -1,12 +1,12 @@
 "use client"
-import { Viewer, Worker, PdfJs } from "@react-pdf-viewer/core";
+import { Page,Viewer, Worker, PdfJs } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import { StyleSheet } from "@react-pdf/renderer";
 const ReadPDF = ({pdf}) => {
     const styles = StyleSheet.create({
         body: {
-          paddingTop: 35,
-          paddingBottom: 65,
+          paddingTop: 0,
+          paddingBottom: 0,
           paddingHorizontal: 35,
         },
         title: {
@@ -16,7 +16,7 @@ const ReadPDF = ({pdf}) => {
         },
         text: {
           margin: 12,
-          fontSize: 14,
+          fontSize: 10,
           textAlign: "justify",
           fontFamily: "AntonFamily",
         },
@@ -34,7 +34,7 @@ const ReadPDF = ({pdf}) => {
         pageNumber: {
           position: "absolute",
           fontSize: 12,
-          bottom: 30,
+          bottom: 0,
           left: 0,
           right: 0,
           textAlign: "center",
@@ -43,14 +43,16 @@ const ReadPDF = ({pdf}) => {
         },
       });
     return ( 
+      
         <Worker
         workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}
-        style={{ width: "70%" }}
+        style={{ width: "70%" ,heigth:"100%"}}
       >
         <div className="w-[70%]  ">
-          <Viewer fileUrl={pdf} style={{ width: "100%" }} />
+          <Viewer fileUrl={pdf} style={styles} />
         </div>
       </Worker>
+     
      );
 }
  

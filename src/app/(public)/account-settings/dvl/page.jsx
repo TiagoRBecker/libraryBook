@@ -1,8 +1,5 @@
-"use client";
-
 import { baseUrl } from "../../../../utils/api";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import {
   Table,
   Thead,
@@ -16,27 +13,27 @@ import {
   Progress,
   Box,
 } from "@chakra-ui/react";
-const Dvl = () => {
-  useEffect(() => {
-    getDvls();
-  }, []);
-  const [dvl, setDvl] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const getDvls = async () => {
-    const getDvlForPay = await fetch(`${baseUrl}/user/1`, {
-      method: "GET",
-    });
-    const response = await getDvlForPay.json();
-     console.log(response)
-    setDvl(response.dvlClient);
-  };
-  const total = dvl?.reduce((acc, currentValue) => acc + currentValue.price, 0);
-  const receive = dvl?.reduce((acc, currentValue) => acc + currentValue.paidOut, 0);
-  const pay = dvl?.reduce((acc,currentValue)=> acc + currentValue.toReceive,0)
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../../../utils/authOptions";
+const getDvls = async (id) => {
+  const getDvlForPay = await fetch(`${baseUrl}/user/${id}`, {
+    method: "GET",
+  });
+  const response = await getDvlForPay.json();
+return response
+};
+const Dvl = async ()  => {
+   const session = await getServerSession(authOptions)
+   const id = session.user.id
+   const data = await getDvls(id)
+    console.log(data)
+  const total = data?.dvlClient.reduce((acc, currentValue) => acc + currentValue.price, 0);
+  const receive = data?.dvlClient.reduce((acc, currentValue) => acc + currentValue.paidOut, 0);
+  const pay = data?.dvlClient.reduce((acc,currentValue)=> acc + currentValue.toReceive,0)
   return (
     <section className="w-full h-full py-10 flex flex-col items-center justify-center">
       {
-        dvl?.length  > 0  ?
+        data?.length  > 0  ?
       <>
       <div className="w-[80%] flex items-center justify-center py-4 gap-3">
         <Box  shadow={'2xl'} bg="#2E8B57" w="33%" p={8} color="white">

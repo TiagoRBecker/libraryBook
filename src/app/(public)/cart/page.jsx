@@ -5,7 +5,7 @@ import { CartContext } from "../../../Context/index";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useRouter } from "next/navigation";
 import { baseUrl } from "../../../utils/api";
-   initMercadoPago("TEST-0cf4c477-1c2a-40af-ab98-cda08a7303f6");
+   initMercadoPago("TEST-22d54f35-2bc9-451b-911e-b9ac824bce02");
 const Cart = () => {
  
 
@@ -231,7 +231,7 @@ const Cart = () => {
 
                       <div className="relative">
                         <input
-                          type="number"
+                          type="text"
                           className="w-full rounded-md border border-gray-600 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                           placeholder="Digite seu endereço"
                         />

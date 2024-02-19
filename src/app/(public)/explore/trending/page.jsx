@@ -1,44 +1,33 @@
-"use client";
 import ArticleNav from "../../../../components/NavArticle";
 import { readingTime } from "reading-time-estimator";
-import Spinner from "../../../../components/Spinner";
-import { useEffect, useState } from "react";
 import { baseUrl } from "../../../../utils/api";
 import Link from "next/link";
-const trend = () => {
-  useEffect(() => {
-    getArticlesTrend();
-  }, []);
-  const [articles, setArticles] = useState([]);
-  const [loading, setLoading] = useState(true);
+import Loading from "../../../loading";
+import { Suspense } from "react";
+const getArticlesTrend = async () => {
+  const getArticle = await fetch(`${baseUrl}/articles-trend`, {
+    method: "GET",
+  });
+  const response = await getArticle.json();
+  
+  return response
+};
+const trend = async () => {
+  const data = await getArticlesTrend()
 
-  const getArticlesTrend = async () => {
-    const getArticle = await fetch(`${baseUrl}/articles-trend`, {
-      method: "GET",
-    });
-    const response = await getArticle.json();
-    setArticles(response);
-    setLoading(false);
-    return;
-  };
+  
 
   const reading = (text) => {
     const read = readingTime(text, 20, "pt-br");
     return read.minutes;
   };
-  if (loading) {
-    return (
-      <section className="w-full h-screen flex items-center justify-center">
-        <Spinner />
-      </section>
-    );
-  }
   return (
+    <Suspense fallback={<Loading/>}>
     <section className="w-full h-full py-10">
       <ArticleNav />
-      {articles.length > 0 ? (
+      {data.length > 0 ? (
         <div className="w-[80%] mx-auto  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 px-4 gap-6">
-          {articles.map((book, index) => (
+          {data.map((book, index) => (
             <div
               className="w-full h-full flex flex-col  shadow-md  py-2 rounded-md "
               key={index}
@@ -113,6 +102,7 @@ const trend = () => {
         </div>
       )}
     </section>
+    </Suspense>
   );
 };
 

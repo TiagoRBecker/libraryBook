@@ -5,11 +5,12 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { baseUrl } from "../../../../../utils/api";
 import { useSession } from "next-auth/react";
+import Loading from "../../../../loading";
 const EditPerfil = () => {
   const fileInputRef = useRef(null);
   const { data: session, status } = useSession();
   const [avatar, setAvatar] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const {
     register,
     handleSubmit,
@@ -55,6 +56,7 @@ const EditPerfil = () => {
     setValue("district", response?.district);
     setValue("numberAdress", response?.numberAdress);
     setValue("complement", response?.complement);
+    setLoading(false)
   };
   const onsubmit = handleSubmit(async (data) => {
     const updatePerfil = await fetch(`${baseUrl}/user-perfil`, {
@@ -65,7 +67,13 @@ const EditPerfil = () => {
       body: JSON.stringify({ data }),
     });
   });
- console.log(errors)
+  if(loading){
+    return (
+      <section className="w-full h-screen flex items-center justify-center">
+        <Loading/>
+      </section>
+    )
+  }
   return (
     <section className="w-full h-full flex  flex-col px-10   gap-5     ">
       <div className="w-full flex items-center justify-between border-b-[1px]   border-[#14b7a1] py-3">

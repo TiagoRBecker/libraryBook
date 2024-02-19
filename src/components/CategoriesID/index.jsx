@@ -8,8 +8,6 @@ const getCategories = async (id) => {
   });
   const response = await categories.json();
   return response;
-
-  return;
 };
 const CategoriesID = async ({ id }) => {
   const data = await getCategories(id);

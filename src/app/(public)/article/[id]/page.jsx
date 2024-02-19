@@ -17,7 +17,7 @@ const Article = async ({ params, searchParams }) => {
  
 
   return (
-    <section className="w-full min-h-screen flex gap-5 min-full mt-16   ">
+    <section className="w-full min-h-screen flex gap-5 min-full ">
       <Suspense fallback={<Loading/>}>
       {data && data.articlepdf ? (
         <ReadPDF pdf={data.articlepdf} />
@@ -52,16 +52,16 @@ const Article = async ({ params, searchParams }) => {
         </div>
       )}
 
-      <div className="w-[30%]  fixed right-0 top-6  ">
-        <div className="w-full  flex flex-col items-center justify-center gap-2  ">
+      <div className="w-[30%] h-full fixed top-[60px] right-0   ">
+        <div className="flex flex-col items-center justify-center   ">
           <img
             src={data.magazine?.cover}
             alt={data.magazine?.name}
-            className="w-1/2 mt-10 h-[270px] object-fill"
+            className="w-1/2 h-[250px] object-fill"
           />
           <p className="pt-1 text-gray-500">{data.magazine?.name}</p>
           <Link href={`/magazine/${data.magazine?.id}`}>
-            <button className="w-full bg-[#14b7a1] border-[1px]  px-10 py-4 text-white rounded-md uppercase text-sm  ">
+            <button className="w-full bg-[#14b7a1] border-[1px]  px-10 py-2 text-white rounded-md uppercase text-sm  ">
               Visitar Revista
             </button>
           </Link>
@@ -74,9 +74,4 @@ const Article = async ({ params, searchParams }) => {
 
 export default Article;
 
-/*
 
-        <div className='w-[50%] h-[270px] flex items-center justify-center '>
-             
-        </div>
-*/
