@@ -100,7 +100,7 @@ const Article =  ({ params, searchParams }) => {
         </div>
       )}
      <div className="w-[30%] h-full  flex items-center justify-center">
-     <aside className={fixed ? "w-[22%] fixed top-[20%] right-28 ":"w-[22%] fixed top-0 right-28"}>
+     <aside className={fixed ? "w-[20%] fixed top-[20%] right-28 ":"w-[20%] fixed top-0 right-28"}>
             <img
               src={data.magazine?.cover}
               alt={data.magazine?.name}
