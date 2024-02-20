@@ -23,6 +23,7 @@ const MagazineID = async ({
   handleShowModalFisica,
 }) => {
   const data = await getmagazineId(id);
+  console.log(data)
   const reading = (text) => {
     const result = readingTime(text, 10, "pt-br");
     return result.minutes;

@@ -7,7 +7,7 @@ export default function settingsLayout({ children }) {
   const path = usePathname();
   return (
     <div className="w-full h-full flex flex-col md:flex-row  ">
-      <nav className="pl-2  py-10 w-full md:w-[20%]  ">
+      <nav className="pl-2  py-10 w-full md:w-[20%] sticky top-3  ">
         <ul className="w-full flex flex-row gap-6 items-center justify-center text-sm md:flex md:flex-col  ">
           <li className="w-32 flex flex-col gap-3">
             <Link

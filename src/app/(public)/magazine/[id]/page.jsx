@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+
 import { useEffect, useState } from "react";
 import { CartContext, cartContext } from "../../../../Context/index";
 import { useContext } from "react";
@@ -23,13 +23,13 @@ const BookId = ({ params }) => {
   reading("ola tudo bem queria tester");
  
 
-  const router = useRouter();
+
   const handleShowModal = (magazine) => {
     addToCart(magazine);
     setShowModal(!showModal);
   };
   const handleGoToCart = () => {
-    router.push("/cart");
+   
     setShowModal(false);
   };
 

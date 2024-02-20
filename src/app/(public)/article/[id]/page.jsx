@@ -4,42 +4,15 @@ import Link from "next/link";
 import ReadPDF from "../../../../components/ReadPdf";
 import {  useEffect, useState } from "react";
 import Loading from "../../../loading";
-
+import Wrapper from  "../../../wrapper"
 const Article =  ({ params, searchParams }) => {
   useEffect(()=>{getArticle()},[])
   const [position, setPosition] = useState(0);
-  const [fixed, setFixed] = useState(true);
   const [ loading ,setLoading] = useState(true)
 
- // Adicionando estado para controlar a direção do scroll
-// Adicionando estado para armazenar a posição anterior do scroll
+ 
 
-  const handleScroll = () => {
-    const magazineHeight = 300;
-    const scrollThreshold = 164;
-
-    const moving = window.scrollY;
-        
-    if (fixed) {
-      // Se o scroll está subindo e a barra lateral está fixa, desabilite o fixed
-      setFixed(false);
-    } 
-    setFixed(position > moving)
-    setPosition(moving);
-    
-
-    
-  };
-
-  useEffect(() => {
-    // Adiciona um ouvinte de scroll quando o componente é montado
-    window.addEventListener('scroll', handleScroll);
-
-    // Remove o ouvinte de scroll quando o componente é desmontado
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [position]);
+ 
 
   const[data ,setData] = useState([])
   const slug = searchParams.status;
@@ -63,8 +36,8 @@ const Article =  ({ params, searchParams }) => {
  }
 
   return (
-    <section className="w-full h-full flex    ">
-    <div className="w-full flex items-center justify-center">
+    <section className="w-full h-full  flex    ">
+    <div className="w-full flex ">
       {data && data.articlepdf ? (
       
         <ReadPDF pdf={data.articlepdf} />
@@ -99,12 +72,12 @@ const Article =  ({ params, searchParams }) => {
           </div>
         </div>
       )}
-     <div className="w-[30%] h-full  flex items-center justify-center">
-     <aside className={fixed ? "w-[20%] fixed top-[20%] right-28 ":"w-[20%] fixed top-0 right-28"}>
+     <Wrapper >
+ 
             <img
               src={data.magazine?.cover}
               alt={data.magazine?.name}
-              className="w-full h-[310px] object-fill"
+              className="w-full h-[300px] object-fill"
             />
             <p className="pt-1 text-gray-500">{data.magazine?.name}</p>
             <Link href={`/magazine/${data.magazine?.id}`}>
@@ -112,11 +85,12 @@ const Article =  ({ params, searchParams }) => {
                 Visitar Revista
               </button>
             </Link>
-          </aside>
+     
+        </Wrapper>
         </div>
   
 
-    </div>
+    
     </section>
   );
 };
