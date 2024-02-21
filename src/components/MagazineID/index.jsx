@@ -8,7 +8,7 @@ const getmagazineId = async (id) => {
   try {
     const getMagazine = await fetch(`${baseUrl}/magazine/${id}`, {
       method: "GET",
-      cache: "force-cache",
+      cache: "no-cache",
     });
     const response = await getMagazine.json();
     return response;
@@ -16,6 +16,7 @@ const getmagazineId = async (id) => {
     console.error("Error fetching magazine:", error);
   }
 };
+
 const MagazineID = async ({
   id,
   handleAddFav,
@@ -23,13 +24,13 @@ const MagazineID = async ({
   handleShowModalFisica,
 }) => {
   const data = await getmagazineId(id);
-  console.log(data)
+
   const reading = (text) => {
     const result = readingTime(text, 10, "pt-br");
     return result.minutes;
   };
   return (
-    <Suspense fallback={<Loading />}>
+    <>
       <div className="w-full flex flex-col justify-center lg:flex-row">
         <div className="w-full  md:w-[40%] h-full flex     ">
           <img
@@ -65,7 +66,7 @@ const MagazineID = async ({
           <p className="w-full h-full text-ellipsis overflow-hidden  ">
             {data?.description}
           </p>
-        
+
           <div className="w-[20%] flex  items-center justify-center py-4">
             <h1 className="text-[#14b7a1] font-bold px-4 border-b-2 border-[#14b7a1] text-xl">
               AVULSO
@@ -80,12 +81,12 @@ const MagazineID = async ({
                 onClick={() => handleShowModal(data)}
                 className="w-full bg-[#14b7a1] px-10 py-4 text-white border-[1px]  rounded-md uppercase text-sm transition duration-700 ease-in-out  hover:bg-black hover:text-white "
               >
-                Comprar
+                Comprar Digital
               </button>
               <div className="w-full flex items-center py-2 justify-around border-b-[1px] border-gray-400">
                 <div className="flex items-center">
-                  <p className="bg-slate-400 rounded-xl w-16 px-1 h-6 text-white ">
-                    10%{" "}
+                  <p className="bg-slate-400 rounded-xl w-[70px] px-1 h-6 text-white ">
+                    200%{" "}
                   </p>
                   <p className="bg-[#14b7a1] h-6 uppercase px-2 text-white rounded-xl -ml-6">
                     DVL
@@ -93,7 +94,7 @@ const MagazineID = async ({
                 </div>
                 <div className="">
                   <span>
-                    {Number(data?.price).toLocaleString("pt-br", {
+                    {Number(data?.price / 100).toLocaleString("pt-br", {
                       style: "currency",
                       currency: "BRL",
                     })}
@@ -171,8 +172,8 @@ const MagazineID = async ({
               </button>
               <div className="w-full flex items-center py-2 justify-around border-b-[1px] border-gray-400">
                 <div className="flex items-center">
-                  <p className="bg-slate-400 rounded-xl w-16 px-1 h-6 text-white ">
-                    10%{" "}
+                  <p className="bg-slate-400 rounded-xl w-[70px] px-1 h-6 text-white ">
+                    200%{" "}
                   </p>
                   <p className="bg-[#14b7a1] h-6 uppercase px-2 text-white rounded-xl -ml-6">
                     DVL
@@ -180,7 +181,7 @@ const MagazineID = async ({
                 </div>
                 <div className="">
                   <span>
-                    {Number(data?.price).toLocaleString("pt-br", {
+                    {Number(data?.price / 100).toLocaleString("pt-br", {
                       style: "currency",
                       currency: "BRL",
                     })}
@@ -253,7 +254,7 @@ const MagazineID = async ({
         </div>
       </div>
       <div>
-        {data?.article && data?.article.length > 0 &&(
+        {data?.article && data?.article.length > 0 && (
           <div className="w-full px-4">
             <h1 className="py-4 uppercase text-black font-bold">
               Artigos nesta Edição
@@ -261,7 +262,10 @@ const MagazineID = async ({
 
             <div className="w-full h-full grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-3 py-5">
               {data?.article?.map((article, index) => (
-                <Link href={`/article/${article.id}?status=${article.status}`} key={index}>
+                <Link
+                  href={`/article/${article.id}?status=${article.status}`}
+                  key={index}
+                >
                   <div
                     className="w-full h-full flex flex-col  shadow-md px-4 py-2 rounded-md "
                     key={index}
@@ -285,7 +289,7 @@ const MagazineID = async ({
                       <img
                         src={article.cover}
                         alt={article.name}
-                        className="w-full h-full   md:w-[30%] md:h-[130px] object-fill "
+                        className="w-full h-full   md:w-[30%] md:h-[130px] object-cover "
                       />
                     </div>
 
@@ -335,10 +339,9 @@ const MagazineID = async ({
         )}
       </div>
       <div className="w-full py-20 mx-auto h-full px-4">
-      
-        <LastMagazines />
+        
       </div>
-    </Suspense>
+    </>
   );
 };
 

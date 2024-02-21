@@ -1,79 +1,60 @@
-"use client"
 import { baseUrl } from "../../../../utils/api";
 import Link from "next/link";
 import ReadPDF from "../../../../components/ReadPdf";
-import {  useEffect, useState } from "react";
 import Loading from "../../../loading";
-import Wrapper from  "../../../wrapper"
-const Article =  ({ params, searchParams }) => {
-  useEffect(()=>{getArticle()},[])
-  const [position, setPosition] = useState(0);
-  const [ loading ,setLoading] = useState(true)
+import Wrapper from "../../../wrapper";
+import { Suspense } from "react";
+const getArticle = async (id, slug) => {
+  const getArticleId = await fetch(`${baseUrl}/article/${id}?status=${slug}`, {
+    method: "GET",
+    cache: "no-cache",
+  });
+  const response = await getArticleId.json();
 
- 
-
- 
-
-  const[data ,setData] = useState([])
+  return response;
+};
+const Article = async ({ params, searchParams }) => {
   const slug = searchParams.status;
   const id = params.id;
-  
-  const getArticle = async () => {
-    const getArticleId = await fetch(`${baseUrl}/article/${id}?status=${slug}`, {
-      method: "GET",
-    });
-    const response = await getArticleId.json();
-    setData(response)
-    setLoading(false)
-    return response;
-  };
- if(loading){
-  return(
-    <section className="w-full h-screen">
-      <Loading/>
-    </section>
-  )
- }
+  const data = await getArticle(id, slug);
 
   return (
-    <section className="w-full h-full  flex    ">
-    <div className="w-full flex ">
-      {data && data.articlepdf ? (
-      
-        <ReadPDF pdf={data.articlepdf} />
-      
-      ) : (
-        <div className="w-[70%] flex items-center  flex-col gap-2">
-          <img
-            src={data.cover}
-            alt={data.name}
-            className="w-[450px] h-[300px]"
-          />
-          <div className="w-full text-gray-400">
-            <p>{data.description}</p>
-          </div>
-          <div className="w-full flex flex-col gap-4 items-center justify-center ">
-            <div className="w-8 h-8  rounded-md flex items-center justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6  text-black "
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
-                />
-              </svg>
+    <Suspense fallback={<Loading />}>
+      <section className="w-full h-full  flex    ">
+        <div className="w-full flex ">
+          {data && data.articlepdf ? (
+            <ReadPDF pdf={data.articlepdf} />
+          ) : (
+            <div className="w-[70%] flex items-center  flex-col gap-2">
+              <img
+                src={data.cover}
+                alt={data.name}
+                className="w-[450px] h-[300px]"
+              />
+              <div className="w-full text-gray-400">
+                <p>{data.description}</p>
+              </div>
+              <div className="w-full flex flex-col gap-4 items-center justify-center ">
+                <div className="w-8 h-8  rounded-md flex items-center justify-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6  text-black "
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
+                    />
+                  </svg>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
-     <Wrapper >
- 
+          )}
+          <Wrapper>
             <img
               src={data.magazine?.cover}
               alt={data.magazine?.name}
@@ -85,16 +66,11 @@ const Article =  ({ params, searchParams }) => {
                 Visitar Revista
               </button>
             </Link>
-     
-        </Wrapper>
+          </Wrapper>
         </div>
-  
-
-    
-    </section>
+      </section>
+    </Suspense>
   );
 };
 
 export default Article;
-
-

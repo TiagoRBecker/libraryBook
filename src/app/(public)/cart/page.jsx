@@ -8,12 +8,11 @@ import { baseUrl } from "../../../utils/api";
    initMercadoPago("TEST-22d54f35-2bc9-451b-911e-b9ac824bce02");
 const Cart = () => {
  
-
-  const router = useRouter();
+ 
   const { cart ,removeToCart} = useContext(CartContext);
   const [preferenceId, setPreferenceId] = useState(null);
   const [loading, setLoading] = useState(false); // loading da tela
-  console.log(cart)
+
   //calcula o total dos produtos
   const totalPrice = cart?.reduce((acc, item) => {
     return acc + item.price * 1;
@@ -110,7 +109,7 @@ const Cart = () => {
                         </p>
                         <p className="flex items-center justify-end pt-10">
                           {book.price &&
-                            book.price?.toLocaleString("pt-br", {
+                            Number(book.price / 100)?.toLocaleString("pt-br", {
                               style: "currency",
                               currency: "BRL",
                             })}
