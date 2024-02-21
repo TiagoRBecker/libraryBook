@@ -28,7 +28,7 @@ const Library =  () => {
     console.log(getBooks)
     
   return (
-    <section className="w-full h-full py-10 mt-14">
+    <section className="w-full min-h-screen py-10 mt-14">
       <h1 className="text-center py-2 text-2xl text-gray-400">Revistas</h1>
       <div className=" flex items-center justify-around pt-10">
         <div className="flex gap-2 items-center justify-center w-[30%]">
