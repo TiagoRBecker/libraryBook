@@ -18,7 +18,7 @@ const Article = async ({ params, searchParams }) => {
   const slug = searchParams.status;
   const id = params.id;
   const data = await getArticle(id, slug);
- console.log(data)
+ 
   return (
     <Suspense fallback={<Loading />}>
       <section className="w-[90%] h-full  flex flex-col mt-16  px-4 mx-auto ">
@@ -60,7 +60,7 @@ const Article = async ({ params, searchParams }) => {
             <img
               src={data.magazine?.cover}
               alt={data.magazine?.name}
-              className="w-[80%] h-[300px] object-fill"
+              className="w-[70%] h-[300px] object-fill"
             />
             <p className="pt-1 text-gray-500">{data.magazine?.name}</p>
             <Link href={`/magazine/${data.magazine?.id}`}>
