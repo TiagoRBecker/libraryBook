@@ -14,7 +14,12 @@ export default function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [favorite, setFave] = useState([]);
  useEffect(()=>{
-  const getFavorite = JSON?.parse(localStorage.getItem("cart"))
+  const cartStorage = JSON.parse(localStorage.getItem("cart") ) || [];
+    if(cartStorage){
+     setCart(cartStorage)
+    }
+    
+  const getFavorite = JSON?.parse(localStorage.getItem("favorite")) || []
   if(getFavorite){
     setFave(getFavorite)
   }

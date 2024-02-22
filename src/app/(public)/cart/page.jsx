@@ -1,26 +1,30 @@
 "use client";
 import { useContext, useEffect, useState } from "react";
-import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { CartContext } from "../../../Context/index";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useRouter } from "next/navigation";
 import { baseUrl } from "../../../utils/api";
-   initMercadoPago("TEST-22d54f35-2bc9-451b-911e-b9ac824bce02");
+import Loading from "../../loading";
 const Cart = () => {
  
- 
-  const { cart ,removeToCart} = useContext(CartContext);
+  const { cart, removeToCart } = useContext(CartContext);
   const [preferenceId, setPreferenceId] = useState(null);
-  const [loading, setLoading] = useState(false); // loading da tela
+  const [loadingCart, setLoadingCart] = useState(true); // loading da tela
+  const [loading ,setLoading] = useState(false)
+  const [isEmpty ,setIsEmpty] = useState(true)
+  useEffect(()=>{
+    const cartData = JSON.parse(localStorage.getItem("cart"));
+    if (cartData && cartData.length > 0) {
+      setIsEmpty(false); // Define o estado isEmpty como falso se houver itens no carrinho
+    }
+    setLoadingCart(false)
 
+  
+  },[cart])
   //calcula o total dos produtos
   const totalPrice = cart?.reduce((acc, item) => {
     return acc + item.price * 1;
   }, 0);
   const createPreference = async (e) => {
-    
-    
-
     try {
       const request = await fetch(`${baseUrl}/payment`, {
         method: "POST",
@@ -36,26 +40,21 @@ const Cart = () => {
       console.log(error);
     }
   };
-  if (loading) {
+  if (loadingCart) {
     return (
       <div className="w-full h-screen flex items-center justify-center">
-        <p className="text-checkout">
-          Por favor, aguarde. Em breve, você será direcionado para um ambiente
-          seguro.
-        </p>
+        <Loading/>
       </div>
     );
   }
- 
-  
- 
-  const handleBuy = async (e) => {
-    e.preventDefault();
-    const id = await createPreference();
-    if (id) {
-      setPreferenceId(id);
-    }
-  };
+  if (loading) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+       <p>Aguarde voce será redirecionado para um ambiente seguro ..</p>
+      </div>
+    );
+  }
+
   return (
     <>
       <section className="w-full h-full relative py-[4rem]">
@@ -67,7 +66,7 @@ const Cart = () => {
           </div>
         ) : (
           <div className="w-full h-full grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
-            <div className="px-4 pt-8">
+            <div className="w-full h-[450px]  px-4 mt-10 overflow-y-auto">
               <p className="text-xl font-medium">Lista de Produtos</p>
               {cart?.map((book, index) => (
                 <div className="flex border-b-2 border-gray-200 py-5 px-4 ">
@@ -77,7 +76,7 @@ const Cart = () => {
                         <img
                           src={book.cover[0]}
                           alt={book.name}
-                          className="w-20 h-20"
+                          className="w-20 h-26 object-fill"
                         />
                       </div>
                       <div className="w-[40%]   flex flex-col gap-2 px-2">
@@ -326,7 +325,7 @@ const Cart = () => {
                         {new Intl.NumberFormat("pt-BR", {
                           style: "currency",
                           currency: "BRL",
-                        }).format(totalPrice)}
+                        }).format(totalPrice / 100)}
                       </p>
                     </div>
                   </div>
@@ -338,22 +337,14 @@ const Cart = () => {
                       {new Intl.NumberFormat("pt-BR", {
                         style: "currency",
                         currency: "BRL",
-                      }).format(totalPrice)}
+                      }).format(totalPrice / 100)}
                     </p>
                   </div>
                 </div>
-
-                <div className="py-4 w-full h-full flex flex-col gap-1">
-                  <PayPalScriptProvider options={{ clientId: "test" }}>
-                    <PayPalButtons style={{ layout: "horizontal" }} />
-                  </PayPalScriptProvider>
-                 
+                <div className="w-full flex items-center justify-center pt-6">
+                  <button className="w-full py-3 font-bold bg-[#14b7a1] text-white rounded-md text-lg uppercase">Confirmar</button>
                 </div>
               </form>
-              <button onClick={handleBuy}>Pagar</button>
-              {preferenceId &&<Wallet initialization={{ preferenceId:preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}}} />}
-              
-
             </div>
           </div>
         )}
