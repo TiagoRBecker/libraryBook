@@ -30,7 +30,7 @@ const Free = async () => {
           className="w-full h-full flex flex-col  shadow-md  py-2 rounded-md "
             key={index}
           >
-            <Link href={`/article/${book.id}?status=${book.status}`}>
+            <Link href={`/read-article/${book.id}?status=${book.status}`}>
             <img
               src={book.cover}
               alt={book.name}

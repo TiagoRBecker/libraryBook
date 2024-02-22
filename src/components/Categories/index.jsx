@@ -37,7 +37,7 @@ const Categories = async () => {
            {
             category.length >= 4 ?
             <Carrousel>
-              {category.magazine.map((magazine, magazineIndex) => (
+              {category.magazine.map((magazine, index) => (
                 <Link href={`/magazine/${magazine.id}`} key={index} className="mb-5">
                   <div
                     key={magazineIndex}

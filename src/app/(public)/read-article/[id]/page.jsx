@@ -4,6 +4,7 @@ import ReadPDF from "../../../../components/ReadPdf";
 import Loading from "../../../loading";
 import Wrapper from "../../../wrapper";
 import { Suspense } from "react";
+import WayPoint from "../../../../components/WayPoint";
 const getArticle = async (id, slug) => {
   const getArticleId = await fetch(`${baseUrl}/article/${id}?status=${slug}`, {
     method: "GET",
@@ -17,11 +18,12 @@ const Article = async ({ params, searchParams }) => {
   const slug = searchParams.status;
   const id = params.id;
   const data = await getArticle(id, slug);
-
+ console.log(data)
   return (
     <Suspense fallback={<Loading />}>
-      <section className="w-full h-full  flex    ">
-        <div className="w-full flex ">
+      <section className="w-[90%] h-full  flex flex-col mt-16  px-4 mx-auto ">
+        <WayPoint url={`/magazine/${data.magazine.id}`} nameCategory={data.magazine.name}   name={data.name} />
+        <div className="w-full flex gap-2 ">
           {data && data.articlepdf ? (
             <ReadPDF pdf={data.articlepdf} />
           ) : (
@@ -58,7 +60,7 @@ const Article = async ({ params, searchParams }) => {
             <img
               src={data.magazine?.cover}
               alt={data.magazine?.name}
-              className="w-full h-[300px] object-fill"
+              className="w-[80%] h-[300px] object-fill"
             />
             <p className="pt-1 text-gray-500">{data.magazine?.name}</p>
             <Link href={`/magazine/${data.magazine?.id}`}>

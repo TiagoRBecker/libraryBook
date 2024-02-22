@@ -27,7 +27,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, ".next/types/app/(public)/article/[id]/page.jsx"  ],
   "exclude": [
     "node_modules"
   ]

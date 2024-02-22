@@ -7,44 +7,50 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { baseUrl } from "../../../../utils/api";
 import { readingTime } from "reading-time-estimator";
-import Loading from "../../../loading"
+import Loading from "../../../loading";
+import WayPoint  from  "../../../../components/WayPoint"
+
 const BookId = ({ params }) => {
-  const { handleAddFav, cart, addToCart, removeToCart } =useContext(CartContext);
+  const { handleAddFav, cart, addToCart, removeToCart } =
+    useContext(CartContext);
   const [showModal, setShowModal] = useState(false);
-  const [data,setData]= useState()
-  const [ loading,setLoading]= useState(true)
-  useEffect(()=>{
-    getmagazineId()
-  })
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
+  const [categoriesMagazine,setCategoriesMagazine] = useState()
+  useEffect(() => {
+    getmagazineId();
+  },[]);
   const reading = (text) => {
     const result = readingTime(text, 10, "pt-br");
     return result.minutes;
   };
   const getmagazineId = async () => {
-   
     try {
       const getMagazine = await fetch(`${baseUrl}/magazine/${params.id}`, {
         method: "GET",
         cache: "no-cache",
       });
       const response = await getMagazine.json();
-      console.log(response)
-      setData(response)
-      setLoading(false)
-      return response;
-      
     
+      const categories = await fetch(`${baseUrl}/category/${response.Category.id}`, {
+        method: "GET",
+        cache: "no-cache",
+      });
+      const category = await categories.json()
+      setCategoriesMagazine(category.magazine)
+      setData(response);
+      setLoading(false);
+      return 
     } catch (error) {
       console.error("Error fetching magazine:", error);
     }
   };
-
+   const decodeName = data?.name.replace(/\s/g, "")
 
   const handleShowModal = (magazine) => {
     addToCart(magazine);
     setShowModal(!showModal);
   };
- 
 
   const removeItem = (book) => {
     removeToCart(book);
@@ -53,15 +59,19 @@ const BookId = ({ params }) => {
 
   const total =
     cart?.reduce((acc, currentValue) => acc + currentValue.price, 0) || 0;
-  if(loading){
-    return(
+  if (loading) {
+    return (
       <section className="w-full h-screen">
-        <Loading/>
+        <Loading />
       </section>
-    )
+    );
   }
+   const filterMagazines = categoriesMagazine.filter((magazine)=> magazine.id != Number(data.id))
   return (
-    <section className="w-[90%] min-h-screen h-full mt-16 py-10 px-4 mx-auto">
+    <section className="w-[90%] min-h-screen h-full mt-16 px-4 mx-auto">
+      <WayPoint url={`/categorias/${data?.Category.id}`} nameCategory={data?.Category.name} name={data?.name}/>
+     
+     {/*Modal*/}
       <div
         className={`${
           showModal
@@ -138,7 +148,7 @@ const BookId = ({ params }) => {
                         </p>
                         <p className="flex items-center justify-end pt-10">
                           {book.price &&
-                           Number(book.price / 100)?.toLocaleString("pt-br", {
+                            Number(book.price / 100)?.toLocaleString("pt-br", {
                               style: "currency",
                               currency: "BRL",
                             })}
@@ -173,16 +183,10 @@ const BookId = ({ params }) => {
               </p>
             </div>
             <div className="w-full flex flex-col md:flex-row items-center justify-center  px-4 py-1 gap-4">
-             
-              <button
-                
-                className="w-full md:w-[50%] bg-[#14b7a1] border-[1px]  px-10 py-4 text-white rounded-md uppercase text-sm  "
-              >
-                 <Link href={"/cart"}>
-                Comprar Agora
-                </Link>
+              <button className="w-full md:w-[50%] bg-[#14b7a1] border-[1px]  px-10 py-4 text-white rounded-md uppercase text-sm  ">
+                <Link href={"/cart"}>Comprar Agora</Link>
               </button>
-              
+
               <button
                 onClick={() => setShowModal(false)}
                 className="w-full md:w-[50%] bg-[#14b7a1] border-[1px]  px-10 py-4 text-white rounded-md uppercase text-sm "
@@ -194,6 +198,7 @@ const BookId = ({ params }) => {
         </div>
       </div>
       {/*Modal*/}
+      {/*Magzines*/}
       <div className="w-full flex flex-col justify-center lg:flex-row">
         <div className="w-full  md:w-[40%] h-full flex     ">
           <img
@@ -328,10 +333,10 @@ const BookId = ({ params }) => {
             </div>
             <div className="w-full mt-2  border-[1px] border-gray-400 py-1 px-1">
               <button
-                onClick={() => handleShowModalFisica(data)}
+                onClick={() => handleShowModal(data)}
                 className="w-full bg-[#14b7a1]   border-[1px]  px-10 py-4 text-white rounded-md uppercase text-sm transition duration-700 ease-in-out hover:bg-black hover:text-white"
               >
-                Comprar
+                Comprar Impresso
               </button>
               <div className="w-full flex items-center py-2 justify-around border-b-[1px] border-gray-400">
                 <div className="flex items-center">
@@ -416,17 +421,25 @@ const BookId = ({ params }) => {
           </div>
         </div>
       </div>
+      {/*Magzines*/}
+      {/*Articles*/}
       <div>
         {data?.article && data?.article.length > 0 && (
-          <div className="w-full px-4">
+          <div className="w-full px-4 py-10">
+            <div className="w-full flex items-center justify-between">
+
             <h1 className="py-4 uppercase text-black font-bold">
               Artigos nesta Edição
             </h1>
+            <Link href={`/article/${decodeName}/${data.id}`}>
+            <span className="text-[#14b7a1]">Ver Todas</span>
+            </Link>
+            </div>
 
             <div className="w-full h-full grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-3 py-5">
               {data?.article?.map((article, index) => (
                 <Link
-                  href={`/article/${article.id}?status=${article.status}`}
+                  href={`/read-article/${article.id}?status=${article.status}`}
                   key={index}
                 >
                   <div
@@ -501,9 +514,39 @@ const BookId = ({ params }) => {
           </div>
         )}
       </div>
+      {/*Articles*/}
+  {filterMagazines && filterMagazines.length > 0 &&
       <div className="w-full py-20 mx-auto h-full px-4">
-        
-      </div>
+        <h1 className="py-4 uppercase text-black font-bold">
+              Revistas desta categoria
+            </h1>
+
+    <div className="w-full h-full grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 py-5">
+    {filterMagazines?.map((book, index) => (
+      <Link href={`/magazine/${book.id}`} key={index}>
+        <div className="w-full h-full flex flex-col gap-1 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]   rounded-md">
+          <img
+            src={book.cover}
+            alt={book.name}
+            className="w-full h-full sm:h-[300px] "
+          />
+          <h2 className="text-gray-400  px-1 ">
+            Edição Volume {book.vol}
+          </h2>
+
+          <p className="w-full text-base truncate text-gray-600  px-1">
+            {book.name}
+          </p>
+
+          <p className="w-full text-base truncate text-gray-600  px-1">
+            {book.capa}
+          </p>
+        </div>
+      </Link>
+    ))}
+  </div>
+  </div> }
+      
       <ToastContainer />
     </section>
   );
