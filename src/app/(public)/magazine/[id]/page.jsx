@@ -162,7 +162,7 @@ const BookId = ({ params }) => {
             <div className="w-full flex items-center justify-between  px-4">
               <h2 className="text-gray-300">Divisão de Lucro 200%</h2>
               <p className="text-base text-[#14b7a1]">
-                {total?.toLocaleString("pt-br", {
+              {Number(total / 100).toLocaleString("pt-br", {
                   style: "currency",
                   currency: "BRL",
                 })}
@@ -176,7 +176,7 @@ const BookId = ({ params }) => {
                 </span>
               </h2>
               <p className="font-bold text-[#14b7a1]">
-                {total?.toLocaleString("pt-br", {
+                {Number(total / 100).toLocaleString("pt-br", {
                   style: "currency",
                   currency: "BRL",
                 })}
