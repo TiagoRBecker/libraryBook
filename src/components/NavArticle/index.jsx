@@ -66,7 +66,7 @@ const ArticleNav = () => {
           </li>
         </ul>
       </nav>
-     <div className="w-full h-full sm:hidden">
+     <div className="w-full h-full overflow-x-hidden sm:hidden">
       <Slider {...settings} className="w-full h-full "  ref={sliderRef}>
         <div className="px-2" >
           <Link

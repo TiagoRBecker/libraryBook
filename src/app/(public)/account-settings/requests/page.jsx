@@ -1,3 +1,4 @@
+"use client";
 import {
   Table,
   Thead,
@@ -11,80 +12,86 @@ import {
 } from "@chakra-ui/react";
 
 import { baseUrl } from "../../../../utils/api";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "../../../../utils/authOptions";
-import { Suspense } from "react";
-import Loading from "../../../loading";
 
-const getOrderByUser = async (id) => {
-  const getOrder = await fetch(`${baseUrl}/user/${id}`, {
-    method: "GET",
-  });
-  const response = await getOrder.json();
-  return response;
-};
-const Requests = async () => {
-  const session = await getServerSession(authOptions);
-  const id = session.user.id;
-  const data = await getOrderByUser(id);
+import { useEffect, useState } from "react";
+import Loading from "../../../loading";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import WayPoint from "../../../../components/WayPoint";
+
+const Requests = () => {
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    getOrderByUser();
+  }, [session]);
+  const getOrderByUser = async () => {
+    const id = session?.user.id;
+    const getOrder = await fetch(`${baseUrl}/user/${id}`, {
+      method: "GET",
+    });
+    const response = await getOrder.json();
+
+    setData(response);
+    setLoading(false);
+    return response;
+  };
+  if (loading) {
+    return (
+      <section className="w-full h-screen flex items-center justify-center">
+        <Loading />
+      </section>
+    );
+  }
+  const items = data.orders.map((item) => item.items);
+  const flatItems = items.flat(); // Nivela o array
+
+  const totalUnitPrice = flatItems.reduce((accumulator, currentItem) => {
+    return accumulator + currentItem.unit_price;
+  }, 0);
+
 
   return (
-    <Suspense fallback={<Loading />}>
-      <section className="w-full h-full flex items-center justify-center  py-10">
-        {data.length > 0 ? (
-          <TableContainer width={"80%"}>
-            <Table variant="simple">
-              <TableCaption>Seu Pedidos</TableCaption>
-              <Thead background={"#14b7a1"}>
-                <Tr>
-                  <Th></Th>
-                  <Th color={"white"}>Nome</Th>
-                  <Th color={"white"}>Preço</Th>
-                  <Th color={"white"}>Quantidade</Th>
-                  <Th color={"white"}>Status</Th>
-                  <Th color={"white"}>Data</Th>
-                </Tr>
-              </Thead>
-              {data.orders?.map((orders, idnex) => (
-                <Tbody>
-                  {orders?.items.map((item, index) => (
-                    <>
-                      <Tr>
-                        <Td width={"10%"}>
-                          <img
-                            src={item.picture_url}
-                            alt={item.title}
-                            className="w-32 "
-                          />
-                        </Td>
-                        <Td>{item.title}</Td>
-                        <Td>
-                          {" "}
-                          {Number(item.unit_price).toLocaleString("pt-br", {
-                            style: "currency",
-                            currency: "BRL",
-                          })}
-                        </Td>
-                        <Td> {item.quantity}</Td>
-                        <Td> {orders.status}</Td>
-                        <Td>
-                          {" "}
-                          {new Date(orders.updateAt).toLocaleDateString()}
-                        </Td>
-                      </Tr>
-                    </>
-                  ))}
-                </Tbody>
-              ))}
-            </Table>
-          </TableContainer>
-        ) : (
-          <div className="w-full h-screen flex items-center justify-center">
-            <p className="text-base text-gray-400">Nenhum pedido realizado.</p>
-          </div>
-        )}
-      </section>
-    </Suspense>
+    <section className="w-[80%] min-h-screen mx-auto   py-10">
+       <WayPoint url={`/account-settings/requests`} nameCategory={"Pedidos"}  />
+      <TableContainer width={"100%"}>
+        <Table variant="simple">
+          <TableCaption>Seu Pedidos</TableCaption>
+          <Thead background={"#14b7a1"}>
+            <Tr>
+            <Th color={"white"}>Data</Th>
+              <Th color={"white"}>Nº</Th>
+              <Th color={"white"}>Items</Th>
+              <Th color={"white"}>Preço</Th>
+              <Th color={"white"}>Status</Th>
+       
+            </Tr>
+          </Thead>
+          {data?.orders?.map((orders, idnex) => (
+            <Tbody>
+              <Tr>
+              
+              <Td>{new Date(orders.createDate).toLocaleDateString()}</Td>
+                <Td>{orders.id}</Td>
+                <Td>{orders.items.length}</Td>
+                <Td>
+                  {Number(totalUnitPrice / 100).toLocaleString("pt-br", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+                </Td>
+                <Link href={`/account-settings/requests/${orders.id}`} className="w-full">
+                <Td> {orders.status}</Td>
+                
+              </Link>
+              </Tr>
+            </Tbody>
+          ))}
+        </Table>
+      </TableContainer>
+    </section>
   );
 };
 

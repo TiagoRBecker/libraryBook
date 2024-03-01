@@ -2,15 +2,26 @@
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../../Context/index";
 import { useRouter } from "next/navigation";
-import { baseUrl } from "../../../utils/api";
+import { baseURLPOST, baseUrl } from "../../../utils/api";
 import Loading from "../../loading";
+import { useForm} from "react-hook-form"
+import { useSession } from "next-auth/react";
 const Cart = () => {
- 
+  const router = useRouter()
+  const {data:session} = useSession()
   const { cart, removeToCart } = useContext(CartContext);
-  const [preferenceId, setPreferenceId] = useState(null);
   const [loadingCart, setLoadingCart] = useState(true); // loading da tela
   const [loading ,setLoading] = useState(false)
   const [isEmpty ,setIsEmpty] = useState(true)
+  const {
+    register,
+    handleSubmit,
+    watch,
+    trigger,
+    getValues,
+    formState: { errors },
+  } = useForm();
+ 
   useEffect(()=>{
     const cartData = JSON.parse(localStorage.getItem("cart"));
     if (cartData && cartData.length > 0) {
@@ -24,22 +35,31 @@ const Cart = () => {
   const totalPrice = cart?.reduce((acc, item) => {
     return acc + item.price * 1;
   }, 0);
-  const createPreference = async (e) => {
+  const onSubmit = handleSubmit(async (data) => {
+    const id = session.user.id
+    
     try {
-      const request = await fetch(`${baseUrl}/payment`, {
+      const request = await fetch(`https://localhost:5000/order`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ cart }),
+        mode:"cors",
+        body: JSON.stringify({ cart ,data ,id}),
+       
       });
 
-      const response = await request.json();
-      return response.id;
+      
+      if(request.status === 200){
+        setLoading(true)
+        const response = await request.json();
+        router.push(`payment/?url=${response}`)
+        
+      }
     } catch (error) {
       console.log(error);
     }
-  };
+  });
   if (loadingCart) {
     return (
       <div className="w-full h-screen flex items-center justify-center">
@@ -122,7 +142,7 @@ const Cart = () => {
             <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
               <p className="text-xl font-medium">Detalhes do Pagamento</p>
               <p className="text-gray-400">Complete os detalhes do pagamento</p>
-              <form method="POST">
+              <form method="POST" onSubmit={onSubmit}>
                 <div className="">
                   <label
                     htmlFor="name"
@@ -132,6 +152,7 @@ const Cart = () => {
                   </label>
                   <div className="relative">
                     <input
+                     {...register("name")}
                       type="text"
                       id="name"
                       className="w-full rounded-md border border-gray-600 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
@@ -164,6 +185,7 @@ const Cart = () => {
                   </label>
                   <div className="relative">
                     <input
+                      {...register("email")}
                       type="text"
                       className="w-full rounded-md border border-gray-600 px-4 py-3 pl-11 text-sm  shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                       placeholder="seu@email.com"
@@ -196,6 +218,7 @@ const Cart = () => {
 
                   <div className="relative">
                     <input
+                      {...register("phone")}
                       type="text"
                       className="w-full rounded-md border border-gray-600 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                       placeholder="( xx ) 999-999-999"
@@ -218,6 +241,38 @@ const Cart = () => {
                       </svg>
                     </div>
                   </div>
+                  <label
+                    htmlFor="name"
+                    className="mt-4 mb-2 block text-sm font-medium"
+                  >
+                    CPF ou CPNJ
+                  </label>
+                  <div className="relative">
+                    <input
+                     {...register("doc")}
+                      type="text"
+                      id="name"
+                      className="w-full rounded-md border border-gray-600 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                      placeholder="CPF ou CNPJ"
+                    />
+
+                    <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="h-4 w-4 text-gray-400"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
                   <div className="flex gap-2">
                     <div className="w-[80%] flex flex-col">
                       <label
@@ -229,6 +284,7 @@ const Cart = () => {
 
                       <div className="relative">
                         <input
+                          {...register("adress")}
                           type="text"
                           className="w-full rounded-md border border-gray-600 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                           placeholder="Digite seu endereço"
@@ -262,6 +318,7 @@ const Cart = () => {
 
                       <div className="relative">
                         <input
+                          {...register("numberAddres")}
                           type="number"
                           className="w-full rounded-md border border-gray-600 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                           placeholder="999"
@@ -295,6 +352,7 @@ const Cart = () => {
 
                   <div className="relative ">
                     <input
+                      {...register("district")}
                       type="text"
                       className="w-full rounded-md border border-gray-600 px-4 py-3  text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                       placeholder="Bairro"
@@ -310,6 +368,7 @@ const Cart = () => {
 
                   <div className="relative ">
                     <input
+                      {...register("city")}
                       type="text"
                       className="w-full rounded-md border border-gray-600 px-4 py-3  text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                       placeholder="Cidade"

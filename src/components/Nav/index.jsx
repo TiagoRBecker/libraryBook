@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { baseUrl } from "../../utils/api";
 import { CartContext } from "../../Context";
@@ -16,9 +16,9 @@ const Header = () => {
   const [categories, setCategories] = useState([]);
   const [openCategory, setOpenCategory] = useState(false);
   const cls = visible ? "visible_menu" : "hidden_menu";
-
+  const [categoriesLoaded, setCategoriesLoaded] = useState(false);
   useEffect(() => {
-    getCategories();
+   
     const handleResize = () => {
       const viewWidth = window.innerWidth;
       if (viewWidth > 770) setShowMenuMobile(false);
@@ -57,7 +57,7 @@ const Header = () => {
       document.body.classList.remove("overflow-hidden");
       window.removeEventListener("resize", handleResize);
     };
-  }, [position, showUser, showMenuMobile, openCategory]);
+  }, [position, showUser, showMenuMobile,openCategory ]);
 
   const showMenu = () => {
     setShowUser(!showUser);
@@ -66,15 +66,26 @@ const Header = () => {
   const handleMenuMobile = () => {
     setShowMenuMobile(!showMenuMobile);
   };
-  const getCategories = async () => {
-    const categories = await fetch(`${baseUrl}/categories`, {
-      method: "GET",
-      cache: "no-cache",
-    });
-    const response = await categories.json();
-    setCategories(response);
-    return;
-  };
+
+  const getCategories = useCallback(async () => {
+    try {
+      const response = await fetch(`${baseUrl}/categories`, {
+        method: "GET",
+        cache: "force-cache",
+      });
+      const categoriesData = await response.json();
+      setCategories(categoriesData);
+      setCategoriesLoaded(true);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!categoriesLoaded) {
+      getCategories();
+    }
+  }, [categoriesLoaded, getCategories]);
   const handleOpenCategory = () => {
     setOpenCategory(!openCategory);
   };

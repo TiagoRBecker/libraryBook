@@ -86,7 +86,7 @@ const Carrousel = ({children}) => {
         ],
       };
     return ( 
-        <Slider {...settings}>
+        <Slider {...settings} className="w-full h-full">
             {children}
         </Slider>
      );

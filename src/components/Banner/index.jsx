@@ -1,50 +1,30 @@
-"use client"
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
+import { Suspense } from "react";
+import { baseUrl } from "../../utils/api";
+import CarrouselBanner from "../CarrouselComponent/CarrouselBanner";
+import Loading from "../../app/loading";
+const getBanner = async ()=>{
+  const request = await fetch(`${baseUrl}/banners`,{method:"GET",cache:"force-cache", next:{
+    revalidate:90
+  }})
+  const response = await request.json()
+  return response 
+}
 
-const Carrousel = () => {
-
+const Carrousel = async  () => {
+ const data = await getBanner()
     
-    const settings = {
-        infinite: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay:true,
-        autoplaySpeed: 4000,
-        adaptiveHeight: true,
-        dots:false,
-        arrows:false,
-        fade: true,
-       
-
-       
-     
-        
-      };
+    
+    
        
      
         
     return ( 
-      <section className="w-full h-full mb-16">
-     
-        <Slider {...settings} className="w-full h-full md:h-[300px] mt-[62px] ">
-          
-         
-        <div className="w-full h-full ">
-        <img src="/1.jpg" alt="" className="w-full h-full object-cover" />
-        </div>
-        <div className="w-full h-full relative ">
-        <img src="/2.jpg" alt=""  className="w-full h-full object-cover"/>
-        </div>
-        <div className="w-full h-full relative  ">
-        <img src="/3.jpg" alt=""  className="w-full h-full object-cover"/>
-        </div>
-         
-          
-         
-        </Slider>
+      <Suspense fallback={<Loading/>}>
+      <section className="w-full h-full mt-16 ">
+     <CarrouselBanner data={data} />
+    
         </section>
+        </Suspense>
      );
 }
  

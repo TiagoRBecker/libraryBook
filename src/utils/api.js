@@ -1,3 +1,5 @@
-export const baseUrl ="http://191.101.70.103:5000"
+export const baseUrl ="http://localhost:443"
 //"http://191.101.70.103:5000"
-////"http://localhost:5000"
+////"http://localhost:443"
+////"https://localhost:5000"
+export const baseURLPOST = "https://localhost:5000"

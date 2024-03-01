@@ -5,6 +5,7 @@ import './globals.css'
 import CartProvider from '../Context/index'
 const inter = Inter({ subsets: ['latin'] })
 import {SessionProvider } from "next-auth/react"
+import Script from 'next/script'
 
 
 export default function RootLayout({ children }) {
@@ -16,11 +17,20 @@ export default function RootLayout({ children }) {
       <CartProvider>
     
       <body >
-      <Providers>{children}</Providers>
         
+      <Providers>{children}</Providers>
+              
+  
+      <Script strategy="beforeInteractive" src="/js/libs/jquery.min.js" />
+<Script strategy="beforeInteractive" src="/js/libs/html2canvas.min.js" />
+<Script strategy="beforeInteractive" src="/js/libs/three.min.js" />
+<Script strategy="beforeInteractive" src="/js/libs/pdf.min.js" />
+<Script strategy="beforeInteractive" src="/js/pdf.worker.js" />
+<Script strategy="beforeInteractive" src="/js/dist/3dflipbook.js" />
         </body>
       </CartProvider>
       </SessionProvider>
+   
     </html>
     
    

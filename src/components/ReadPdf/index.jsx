@@ -3,6 +3,7 @@
 import { Viewer, Worker } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import { StyleSheet } from "@react-pdf/renderer";
+import Script from "next/script";
 const ReadPDF = ({pdf}) => {
   const styles = StyleSheet.create({
     body: {
@@ -45,16 +46,17 @@ const ReadPDF = ({pdf}) => {
   });
     return ( 
    
-    
-    
+    <>
+      <Script strategy="beforeInteractive" src="https://unpkg.com/pdfjs-dist@2.5.207/build/pdf.worker.min.js" />
   <Worker
-        workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}
+        workerUrl={`https://unpkg.com/pdfjs-dist@2.5.207/build/pdf.worker.min.js`}
         style={{ width: "70%", height: "100%", }}
       >
         <div className="w-[70%] py-5  ">
           <Viewer fileUrl={pdf}  defaultScale={1.2} style={styles} size={50}/>
         </div>
       </Worker>
+      </>
 
     
      

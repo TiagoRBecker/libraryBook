@@ -24,7 +24,7 @@ const LastMagazines = async () => {
 
       </div>
 
-      <div className="w-full h-full grid grid-cols-5  mx-auto gap-6" >
+      <div className="w-full h-full grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 py-5">
         {data?.map((magazine, index) => (
           <Link href={`/magazine/${magazine.id}`} key={index}>
             <div className="w-full  ">
@@ -32,7 +32,7 @@ const LastMagazines = async () => {
                 <img
                   src={magazine.cover}
                   alt={magazine.name}
-                  className="w-full h-[270px] object-fill "
+                  className="w-full h-full sm:h-[300px] "
                   loading="lazy"
                 />
                 <div className="px-2 py-2">

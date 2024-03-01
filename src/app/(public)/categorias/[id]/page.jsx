@@ -1,4 +1,3 @@
-"use client"
 import CategoriesID from "../../../../components/CategoriesID/index"
 import { Suspense } from "react";
 import Loading from  "../../../loading"

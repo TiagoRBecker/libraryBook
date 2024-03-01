@@ -18,11 +18,11 @@ const Article = async ({ params, searchParams }) => {
   const slug = searchParams.status;
   const id = params.id;
   const data = await getArticle(id, slug);
- 
+  console.log(data)
   return (
     <Suspense fallback={<Loading />}>
       <section className="w-[90%] h-full  flex flex-col mt-16  px-4 mx-auto ">
-        <WayPoint url={`/magazine/${data.magazine.id}`} nameCategory={data.magazine.name}   name={data.name} />
+        <WayPoint url={`/magazine/${data.magazine?.id}`} nameCategory={data.magazine?.name}   name={data?.name} />
         <div className="w-full flex gap-2 ">
           {data && data.articlepdf ? (
             <ReadPDF pdf={data.articlepdf} />
